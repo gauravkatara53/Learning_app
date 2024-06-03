@@ -5,6 +5,7 @@ import Navbar from './Components/Navbar'
 import NotePage from './Pages/NotePage';
 import Courses from './Pages/ Courses';
 import Attendance from './Pages/Attendance';
+import Group from './Pages/ Group';
 
 
 function App() {
@@ -16,6 +17,8 @@ function App() {
         <Route path="/notes" element={<NotePage />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/group" element={<Group/>} />
+        
 
       </Routes>
     </div>

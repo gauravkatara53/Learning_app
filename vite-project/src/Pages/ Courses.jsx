@@ -13,50 +13,92 @@ const Courses = () => {
               <a href="#">
                 <div className="flex items-center">
                   <div>
-                    <h5 className="mb-2 text-3xl font-bold">NOTES</h5>
+                    <h5 className="mb-2 text-3xl font-bold">DSA WITHIN 30 DAYS</h5>
                    
                   </div>
                   <span className="badge bg-blue-500 rounded-full ml-auto">14</span>
                 </div>
                 <img
-                  src="https://img.freepik.com/free-vector/script-writing-software-engineering-coding-workshop-code-created-workshop-online-programming-course-apps-games-development-class-concept_335657-818.jpg"
-                  className="w-full h-auto mt-2"
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7zWlYcGsOdzAR7VBnFxZn1PliyLPDQDtP5VrgKNQSoYoLUGYTZ2Y1gtsPmLjsO4wo-gk&usqp=CAU"
+                  className="w-full h-auto mt-2 rounded-lg"
                   alt="CSE"
                 />
               </a>
+              <div className="p-4 flex space-x-2">
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            
+          >
+            Buy
+          </button>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            
+          >
+            Add to Cart
+          </button>
+        </div>
             </div>
             <div className="bg-white shadow-lg rounded-lg p-4">
               <a href="/">
                 <div className="flex items-center">
                   <div>
-                    <h5 className="mb-2 text-3xl font-bold">PYQ'S</h5>
+                    <h5 className="mb-2 text-3xl font-bold">AI/ML COURSES</h5>
                    
                   </div>
                   <span className="badge bg-blue-500 rounded-full ml-auto">75</span>
                 </div>
                 <img
-                  src="https://img.freepik.com/free-vector/electricity-lighting-flowchart-with-characters-electrical-fitters-with-power-panels-infrastructure-elements_1284-54211.jpg"
-                  className="w-full h-auto mt-2"
+                  src="https://image.pbs.org/video-assets/XFRgNfM-asset-mezzanine-16x9-Qo6oLrn.jpg?focalcrop=1200x630x50x10&format=auto"
+                  className="w-full h-auto mt-2 rounded-lg"
                   alt="Electrical"
                 />
               </a>
+              <div className="p-4 flex space-x-2">
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            
+          >
+            Buy
+          </button>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            
+          >
+            Add to Cart
+          </button>
+        </div>
             </div>
             <div className="bg-white shadow-lg rounded-lg p-4">
                 
               <a href="/">
                 <div className="flex items-center">
                   <div>
-                    <h5 className="mb-2 text-3xl font-bold">CREDITS</h5>
+                    <h5 className="mb-2 text-3xl font-bold">WEB DEV</h5>
                     
                   </div>
                   <span className="badge bg-blue-500 rounded-full ml-auto">100</span>
                 </div>
                 <img
-                  src="https://static.vecteezy.com/system/resources/thumbnails/015/881/058/small/flat-isometric-3d-illustration-of-educational-concept-of-rocket-gliding-over-hand-free-vector.jpg"
-                  className="w-full h-auto mt-2"
+                  src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200214165928/Web-Development-Course-Thumbnail.jpg"
+                  className="w-full h-auto mt-2 rounded-lg"
                   alt="Physics"
                 />
               </a>
+              <div className="p-4 flex space-x-2">
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            
+          >
+            Buy
+          </button>
+          <button
+            className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+            
+          >
+            Add to Cart
+          </button>
+        </div>
             </div>
           </div>
 

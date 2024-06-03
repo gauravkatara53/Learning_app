@@ -42,6 +42,7 @@ const NotePage = () => {
               </a>
             </div>
             <div className="bg-white shadow-lg rounded-lg p-4">
+                
               <a href="/">
                 <div className="flex items-center">
                   <div>
