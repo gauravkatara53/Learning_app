@@ -2,6 +2,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'; 
 
 function Navbar() {
+    const [selectedOption, setSelectedOption] = useState('');
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  }; 
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -124,47 +129,32 @@ function Navbar() {
               />
             </div>
             <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500"
-                  aria-current="page"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <Link to="/notes" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                  Notes
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Attendance
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Group
-                </a>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Courses
-                </a>
-              </li>
-              
-            </ul>
+      <li>
+        <Link to="/" className={`block py-2 px-3 ${location.pathname === "/" ? "text-white bg-blue-700 rounded" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`} aria-current={location.pathname === "/" ? "page" : undefined}>
+          Dashboard
+        </Link>
+      </li>
+      <li>
+        <Link to="/notes" className={`block py-2 px-3 ${location.pathname === "/notes" ? "text-white bg-blue-700 rounded" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`}>
+          Notes
+        </Link>
+      </li>
+      <li>
+        <Link to="/attendance" className={`block py-2 px-3 ${location.pathname === "/attendance" ? "text-white bg-blue-700 rounded" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`}>
+          Attendance
+        </Link>
+      </li>
+      <li>
+        <Link to="/" className={`block py-2 px-3 ${location.pathname === "/group" ? "text-white bg-blue-700 rounded" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`}>
+          Group
+        </Link>
+      </li>
+      <li>
+        <Link to="/courses" className={`block py-2 px-3 ${location.pathname === "/courses" ? "text-white bg-blue-700 rounded" : "text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"}`}>
+          Courses
+        </Link>
+      </li>
+    </ul>
           </div>
         </div>
       </nav>
