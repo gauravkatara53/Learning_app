@@ -6,6 +6,7 @@ import NotePage from './Pages/NotePage';
 import Courses from './Pages/ Courses';
 import Attendance from './Pages/Attendance';
 import Group from './Pages/ Group';
+import Dashboard from './Pages/Dashboard';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Navbar/>} /> 
+        <Route path="/dashboard" element={<Dashboard/>} /> 
         <Route path="/notes" element={<NotePage />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/attendance" element={<Attendance />} />
