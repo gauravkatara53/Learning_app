@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "konva": "^9.3.11",
     "razorpay": "^2.9.4",
     "react": "^18.2.0",
+    "react-canvas-draw": "^1.2.1",
     "react-dom": "^18.2.0",
+    "react-konva": "^18.2.10",
     "react-router-dom": "^6.23.1",
+    "react-sketch-canvas": "^6.2.0",
     "routes": "^2.1.0"
   },
   "devDependencies": {

@@ -7,6 +7,7 @@ import Courses from './Pages/ Courses';
 import Attendance from './Pages/Attendance';
 import Group from './Pages/ Group';
 import Dashboard from './Pages/Dashboard';
+import Board from './Pages/Board';
 
 
 function App() {
@@ -20,7 +21,7 @@ function App() {
         <Route path="/courses" element={<Courses />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/group" element={<Group/>} />
-        
+        <Route path="/board" element={<Board/>} /> 
 
       </Routes>
     </div>
