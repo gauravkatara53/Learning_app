@@ -8,6 +8,8 @@ import Attendance from './Pages/Attendance';
 import Group from './Pages/ Group';
 import Dashboard from './Pages/Dashboard';
 import Board from './Pages/Board';
+import SignUp from './Components/SignUp';
+import SignIn from './Components/SignIn';
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
     <Router>
     <div>
       <Routes>
+      <Route path="/signup" element={<SignUp></SignUp>} />
+      <Route path="/signin" element={<SignIn></SignIn>} />
         <Route path="/" element={<Navbar/>} /> 
         <Route path="/dashboard" element={<Dashboard/>} /> 
         <Route path="/notes" element={<NotePage />} />
