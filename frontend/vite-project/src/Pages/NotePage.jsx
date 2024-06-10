@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../Components/Navbar';
+import { Link } from 'react-router-dom';
 
 const NotePage = () => {
   return (
@@ -26,7 +27,7 @@ const NotePage = () => {
               </a>
             </div>
             <div className="bg-white shadow-lg rounded-lg p-4">
-              <a href="/">
+              <Link to = "http://localhost:3001/">
                 <div className="flex items-center">
                   <div>
                     <h5 className="mb-2 text-3xl font-bold">PYQ'S</h5>
@@ -39,7 +40,7 @@ const NotePage = () => {
                   className="w-full h-auto mt-2"
                   alt="Electrical"
                 />
-              </a>
+              </Link>
             </div>
             <div className="bg-white shadow-lg rounded-lg p-4">
                 

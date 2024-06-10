@@ -194,6 +194,7 @@ function Navbar() {
                   Board
                 </Link>
               </li>
+              
             </ul>
           </div>
         </div>

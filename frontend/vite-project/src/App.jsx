@@ -10,7 +10,7 @@ import Dashboard from './Pages/Dashboard';
 import Board from './Pages/Board';
 import SignUp from './Components/SignUp';
 import SignIn from './Components/SignIn';
-import NoteForm from './Pages/NoteForm';
+// import NoteForm from './Pages/NoteForm';
 
 
 function App() {
@@ -18,7 +18,8 @@ function App() {
     <Router>
     <div>
       <Routes>
-      <Route path="/Noteform" element={<NoteForm></NoteForm>} />
+      {/* <Route path="/Noteform" element={<NoteForm></NoteForm>} /> */}
+      
       <Route path="/signup" element={<SignUp></SignUp>} />
       <Route path="/signin" element={<SignIn></SignIn>} />
         <Route path="/" element={<Navbar/>} /> 
