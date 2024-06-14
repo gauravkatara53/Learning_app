@@ -16,6 +16,7 @@ mongoose.connect("mongodb://localhost:27017/pyq", {
   useUnifiedTopology: true,
 });
 
+// Question Schema
 const QuestionSchema = new mongoose.Schema({
   courseName: String,
   year: Number,
@@ -25,6 +26,16 @@ const QuestionSchema = new mongoose.Schema({
 });
 
 const Question = mongoose.model("Question", QuestionSchema);
+
+// Notes Schema
+const NotesSchema = new mongoose.Schema({
+  courseName: String,
+  term: String,
+  semester: Number,
+  pdfUrl: String,
+});
+
+const Notes = mongoose.model("Notes", NotesSchema);
 
 // Multer setup for file uploads
 const storage = multer.diskStorage({
@@ -41,8 +52,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Route to handle file uploads
-app.post("/upload", upload.single("pdf"), async (req, res) => {
+// Route to handle file uploads for questions
+app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.body;
     const pdfUrl = `http://localhost:3000/uploads/${req.file.filename}`;
@@ -50,6 +61,21 @@ app.post("/upload", upload.single("pdf"), async (req, res) => {
     const question = new Question({ courseName, year, term, semester, pdfUrl });
     await question.save();
     res.json(question);
+  } catch (err) {
+    console.error("Error uploading file:", err);
+    res.status(500).json({ error: "Failed to upload file" });
+  }
+});
+
+// Route to handle file uploads for notes
+app.post("/upload/note", upload.single("pdf"), async (req, res) => {
+  try {
+    const { courseName, term, semester } = req.body;
+    const pdfUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+
+    const note = new Notes({ courseName, term, semester, pdfUrl });
+    await note.save();
+    res.json(note);
   } catch (err) {
     console.error("Error uploading file:", err);
     res.status(500).json({ error: "Failed to upload file" });
@@ -80,6 +106,30 @@ app.get("/questions", async (req, res) => {
   } catch (err) {
     console.error("Error fetching questions:", err);
     res.status(500).json({ error: "Failed to fetch questions" });
+  }
+});
+
+// Route to fetch notes based on query parameters
+app.get("/notes", async (req, res) => {
+  try {
+    const { courseName, term, semester } = req.query;
+    let query = {};
+
+    if (courseName) {
+      query.courseName = courseName;
+    }
+    if (term) {
+      query.term = term;
+    }
+    if (semester) {
+      query.semester = semester;
+    }
+
+    const notes = await Notes.find(query);
+    res.json(notes);
+  } catch (err) {
+    console.error("Error fetching notes:", err);
+    res.status(500).json({ error: "Failed to fetch notes" });
   }
 });
 

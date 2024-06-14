@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import NotePage from "./Pages/NotePage";
@@ -10,27 +10,42 @@ import Dashboard from "./Pages/Dashboard";
 import Board from "./Pages/Board";
 import SignUp from "./Components/SignUp";
 import SignIn from "./Components/SignIn";
-import AdminUpload from "./Components/AdminUpload";
-import SearchForm from "./Components/SearchForm";
-import PDFList from "./Components/PDFList";
+import AdminUpload from "./Components/PYQ/AdminUpload";
+import SearchForm from "./Components/PYQ/SearchForm";
+import PDFList from "./Components/PYQ/PDFList";
+import SearchNotesForm from "./Components/NOTES/SearchNotesForm";
+import NotesList from "./Components/NOTES/NotesList";
+import AdminUploadNotes from "./Components/NOTES/AdminUploadNotes";
 
 function App() {
   const [pdfs, setPdfs] = useState([]);
+  const [notes, setNotes] = useState([]);
 
-  const handleSearch = async ({ courseName, year, term }) => {
+  const handleSearchPdfs = async ({ courseName, year, term }) => {
     const query = new URLSearchParams({ courseName, year, term }).toString();
     const response = await fetch(`http://localhost:3000/questions?${query}`);
     const data = await response.json();
     setPdfs(data);
   };
 
+  const handleSearchNotes = async ({ courseName, term, semester }) => {
+    const query = new URLSearchParams({
+      courseName,
+      term,
+      semester,
+    }).toString();
+    const response = await fetch(`http://localhost:3000/notes?${query}`);
+    const data = await response.json();
+    setNotes(data);
+  };
+
   return (
     <Router>
       <div>
+        <Navbar />
         <Routes>
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/" element={<Navbar />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/notes" element={<NotePage />} />
           <Route path="/courses" element={<Courses />} />
@@ -42,8 +57,18 @@ function App() {
             path="/search"
             element={
               <div>
-                <SearchForm onSearch={handleSearch} />
+                <SearchForm onSearch={handleSearchPdfs} />
                 <PDFList pdfs={pdfs} />
+              </div>
+            }
+          />
+          <Route path="/upload-notes" element={<AdminUploadNotes />} />
+          <Route
+            path="/search-notes"
+            element={
+              <div>
+                <SearchNotesForm onSearch={handleSearchNotes} />
+                <NotesList notes={notes} />
               </div>
             }
           />
