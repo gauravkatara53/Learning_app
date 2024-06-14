@@ -51,63 +51,65 @@ const AdminUploadNotes = () => {
   };
 
   return (
-    <div className="flex flex-col mt-4 mx-2 items-center bg-gray-900 p-8 rounded-lg shadow-md">
-      <h2 className="text-4xl text-white mb-6">Upload Notes</h2>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center w-full"
-      >
-        <input
-          type="text"
-          placeholder="Course Name"
-          value={courseName}
-          onChange={(e) => setCourseName(e.target.value)}
-          className="dark:bg-gray-800 rounded-lg px-4 py-2 mb-4 w-64 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-        />
-        <select
-          value={term}
-          onChange={(e) => setTerm(e.target.value)}
-          className="dark:bg-gray-800 rounded-lg px-4 py-2 mb-4 w-64 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
+    <>
+      <div className="flex flex-col mt-4 mx-2 items-center bg-gray-900 p-8 rounded-lg shadow-md">
+        <h2 className="text-4xl text-white mb-6">Upload Notes</h2>
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center w-full"
         >
-          <option value="">Select Term</option>
-          <option value="midterm">Midterm</option>
-          <option value="endterm">Endterm</option>
-        </select>
-        <input
-          type="number"
-          placeholder="Semester"
-          value={semester}
-          onChange={(e) => setSemester(e.target.value)}
-          className="dark:bg-gray-800 rounded-lg px-4 py-2 mb-4 w-64 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          required
-          min="1"
-          max="8"
-        />
-        <input
-          type="file"
-          onChange={(e) => setFile(e.target.files[0])}
-          className="text-white mb-4"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          Upload
-        </button>
-      </form>
-      {message && (
-        <div
-          className={`mt-4 p-4 rounded-lg ${
-            isError ? "bg-red-600" : "bg-green-600"
-          } text-white`}
-        >
-          {message}
-        </div>
-      )}
-    </div>
+          <input
+            type="text"
+            placeholder="Course Name"
+            value={courseName}
+            onChange={(e) => setCourseName(e.target.value)}
+            className="dark:bg-gray-800 rounded-lg px-4 py-2 mb-4 w-64 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+          <select
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            className="dark:bg-gray-800 rounded-lg px-4 py-2 mb-4 w-64 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          >
+            <option value="">Select Term</option>
+            <option value="midterm">Midterm</option>
+            <option value="endterm">Endterm</option>
+          </select>
+          <input
+            type="number"
+            placeholder="Semester"
+            value={semester}
+            onChange={(e) => setSemester(e.target.value)}
+            className="dark:bg-gray-800 rounded-lg px-4 py-2 mb-4 w-64 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+            min="1"
+            max="8"
+          />
+          <input
+            type="file"
+            onChange={(e) => setFile(e.target.files[0])}
+            className="text-white mb-4"
+            required
+          />
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Upload
+          </button>
+        </form>
+        {message && (
+          <div
+            className={`mt-4 p-4 rounded-lg ${
+              isError ? "bg-red-600" : "bg-green-600"
+            } text-white`}
+          >
+            {message}
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

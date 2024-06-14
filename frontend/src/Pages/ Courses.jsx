@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import Navbar from '../Components/Navbar';
+import React, { useState } from "react";
+import Navbar from "../Components/Navbar";
 
 const Courses = () => {
   const [coursePurchased, setCoursePurchased] = useState({
     DSA: false,
     AI: false,
-    WEB: false
+    WEB: false,
   });
 
   // Function to dynamically load the Razorpay script
   const loadRazorpayScript = (src) => {
     return new Promise((resolve) => {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src = src;
       script.onload = () => {
         resolve(true);
@@ -25,37 +25,43 @@ const Courses = () => {
 
   // Function to handle the payment process
   const handlePayment = async (courseName, amount) => {
-    const res = await loadRazorpayScript('https://checkout.razorpay.com/v1/checkout.js');
+    const res = await loadRazorpayScript(
+      "https://checkout.razorpay.com/v1/checkout.js"
+    );
 
     if (!res) {
-      alert('Razorpay SDK failed to load. Are you online?');
+      alert("Razorpay SDK failed to load. Are you online?");
       return;
     }
 
     const options = {
-      key: 'rzp_test_Y5pTnhyT5RQXvM', // Your Razorpay key ID
+      key: "rzp_test_Y5pTnhyT5RQXvM", // Your Razorpay key ID
       amount: amount * 100, // Amount in paise
-      currency: 'INR',
-      name: 'TPOIC PVT L.T.D',
-      description: 'Test Transaction',
+      currency: "INR",
+      name: "TPOIC PVT L.T.D",
+      description: "Test Transaction",
       handler: function (response) {
-        alert('Payment Successful');
+        alert("Payment Successful");
         setCoursePurchased((prev) => ({ ...prev, [courseName]: true }));
         // Store purchased courses in local storage
-        const purchasedCourses = JSON.parse(localStorage.getItem('purchasedCourses')) || {};
+        const purchasedCourses =
+          JSON.parse(localStorage.getItem("purchasedCourses")) || {};
         purchasedCourses[courseName] = true;
-        localStorage.setItem('purchasedCourses', JSON.stringify(purchasedCourses));
+        localStorage.setItem(
+          "purchasedCourses",
+          JSON.stringify(purchasedCourses)
+        );
       },
       prefill: {
-        name: 'Your Name',
-        email: 'youremail@example.com',
-        contact: '9999999999',
+        name: "Your Name",
+        email: "youremail@example.com",
+        contact: "9999999999",
       },
       notes: {
-        address: 'Your Address',
+        address: "Your Address",
       },
       theme: {
-        color: '#F37254',
+        color: "#F37254",
       },
     };
 
@@ -65,7 +71,6 @@ const Courses = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
       <section>
         <div className="container mx-auto p-4 my-8">
           <div className="flex flex-col items-center">
@@ -74,9 +79,13 @@ const Courses = () => {
                 <a href="#">
                   <div className="flex items-center">
                     <div>
-                      <h5 className="mb-2 text-3xl font-bold">DSA WITHIN 30 DAYS</h5>
+                      <h5 className="mb-2 text-3xl font-bold">
+                        DSA WITHIN 30 DAYS
+                      </h5>
                     </div>
-                    <span className="badge bg-blue-500 rounded-full ml-auto">14</span>
+                    <span className="badge bg-blue-500 rounded-full ml-auto">
+                      14
+                    </span>
                   </div>
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7zWlYcGsOdzAR7VBnFxZn1PliyLPDQDtP5VrgKNQSoYoLUGYTZ2Y1gtsPmLjsO4wo-gk&usqp=CAU"
@@ -92,7 +101,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handlePayment('DSA', 1000)}
+                        onClick={() => handlePayment("DSA", 1000)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -110,11 +119,14 @@ const Courses = () => {
                     <div>
                       <h5 className="mb-2 text-3xl font-bold">AI/ML COURSES</h5>
                     </div>
-                    <span className="badge bg-blue-500 rounded-full ml-auto">75</span>
+                    <span className="badge bg-blue-500 rounded-full ml-auto">
+                      75
+                    </span>
                   </div>
                   <img
                     src="https://image.pbs.org/video-assets/XFRgNfM-asset-mezzanine-16x9-Qo6oLrn.jpg?focalcrop=1200x630x50x10&format=auto
-                   " className="w-full h-auto mt-2 rounded-lg"
+                   "
+                    className="w-full h-auto mt-2 rounded-lg"
                     alt="Electrical"
                   />
                 </a>
@@ -126,7 +138,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handlePayment('AI', 2000)}
+                        onClick={() => handlePayment("AI", 2000)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -144,7 +156,9 @@ const Courses = () => {
                     <div>
                       <h5 className="mb-2 text-3xl font-bold">WEB DEV</h5>
                     </div>
-                    <span className="badge bg-blue-500 rounded-full ml-auto">100</span>
+                    <span className="badge bg-blue-500 rounded-full ml-auto">
+                      100
+                    </span>
                   </div>
                   <img
                     src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200214165928/Web-Development-Course-Thumbnail.jpg"
@@ -160,7 +174,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handlePayment('WEB', 3000)}
+                        onClick={() => handlePayment("WEB", 3000)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy

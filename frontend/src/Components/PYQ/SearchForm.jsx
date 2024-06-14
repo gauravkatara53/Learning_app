@@ -15,7 +15,6 @@ const SearchForm = ({ onSearch }) => {
 
   return (
     <>
-      <Navbar></Navbar>
       <div className="pt-4 px-4">
         <form
           onSubmit={handleSubmit}

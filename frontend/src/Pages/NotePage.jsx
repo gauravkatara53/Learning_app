@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 const NotePage = () => {
   return (
     <div>
-      <Navbar></Navbar>
       <section>
         <div className="container mx-auto p-4 my-8">
           <div className="flex flex-col items-center">
