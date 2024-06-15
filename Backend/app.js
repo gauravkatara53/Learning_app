@@ -1,3 +1,6 @@
+// Load dotenv config
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -5,28 +8,36 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL;
 
-const dotenv = require("dotenv");
-dotenv.config();
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
 
-// Ensure the uploads directory exists
+// Multer setup for file uploads
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir);
 }
 
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.use("/uploads", express.static(uploadsDir));
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadsDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}-${
+      file.originalname
+    }`;
+    cb(null, uniqueSuffix);
+  },
+});
 
-if (!process.env.MONGODB_URI) {
-  console.error("MONGODB_URI is not defined in the environment variables");
-  process.exit(1);
-}
+const upload = multer({ storage });
 
-// Connect to MongoDB
+// MongoDB Connection
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -56,21 +67,10 @@ const NotesSchema = new mongoose.Schema({
 
 const Notes = mongoose.model("Notes", NotesSchema);
 
-// Multer setup for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}-${
-      file.originalname
-    }`;
-    cb(null, uniqueSuffix);
-  },
-});
+// Routes
+app.use("/uploads", express.static(uploadsDir));
 
-const upload = multer({ storage });
-
+// Route for uploading questions
 app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.body;
@@ -84,6 +84,7 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   }
 });
 
+// Route for uploading notes
 app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, term, semester } = req.body;
@@ -97,6 +98,7 @@ app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   }
 });
 
+// Route to fetch questions
 app.get("/questions", async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.query;
@@ -114,6 +116,7 @@ app.get("/questions", async (req, res) => {
   }
 });
 
+// Route to fetch notes
 app.get("/notes", async (req, res) => {
   try {
     const { courseName, term, semester } = req.query;
@@ -130,7 +133,9 @@ app.get("/notes", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  const fileUrl = `${BASE_URL}`;
+  console.log("Generated file URL:", fileUrl);
 });
