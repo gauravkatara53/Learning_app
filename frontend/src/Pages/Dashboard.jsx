@@ -174,7 +174,7 @@ function Dashboard() {
                 <li>
                   <Link
                     to="/calendar"
-                    className={`block py-2 px-3 border border-gray-700 rounded-lg p-4 text-gray-300  hover:bg-gray-700 hover:text-blue-500 ${
+                    className={`block py-2 px-3 text-gray-300  border border-gray-700 rounded-lg hover:bg-gray-700 hover:text-blue-500 ${
                       location.pathname === "/calendar"
                         ? "bg-blue-600 text-white"
                         : ""
@@ -186,7 +186,7 @@ function Dashboard() {
                 <li>
                   <Link
                     to="/community"
-                    className={`block py-2 px-3 border border-gray-700 rounded-lg p-4 text-gray-300  hover:bg-gray-700 hover:text-blue-500 ${
+                    className={`block py-2 px-3 text-gray-300  border border-gray-700 rounded-lg hover:bg-gray-700 hover:text-blue-500 ${
                       location.pathname === "/community"
                         ? "bg-blue-600 text-white"
                         : ""
