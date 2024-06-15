@@ -10,7 +10,7 @@ const NotePage = () => {
           <div className="flex flex-col items-center">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <div className="bg-white shadow-lg rounded-lg p-4">
-                <Link to="/search-notes">
+                <Link to="/search/notes">
                   <div className="flex items-center">
                     <div>
                       <h5 className="mb-2 text-3xl font-bold">NOTES</h5>
@@ -27,7 +27,7 @@ const NotePage = () => {
                 </Link>
               </div>
               <div className="bg-white shadow-lg rounded-lg p-4">
-                <Link to="/search">
+                <Link to="/search/pyq">
                   <div className="flex items-center">
                     <div>
                       <h5 className="mb-2 text-3xl font-bold">PYQ'S</h5>

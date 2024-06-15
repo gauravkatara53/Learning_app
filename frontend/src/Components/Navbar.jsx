@@ -1,29 +1,30 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   const location = useLocation();
-  const [selectedOption, setSelectedOption] = useState('');
-
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-  };
-
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <nav className="bg-white border-gray-200 dark:bg-gray-900">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
-          <a href="#" className="flex items-center space-x-3 rtl:space-x-reverse">
+          <a
+            href="/dashboard"
+            className="flex items-center space-x-3 rtl:space-x-reverse"
+          >
             <img
               src="https://flowbite.com/docs/images/logo.svg"
               className="h-8"
-              alt=" Logo"
+              alt="Logo"
             />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               Topic
@@ -102,7 +103,9 @@ function Navbar() {
             </button>
           </div>
           <div
-            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${isOpen ? 'block' : 'hidden'}`}
+            className={`items-center justify-between w-full md:flex md:w-auto md:order-1 ${
+              isOpen ? "block" : "hidden"
+            }`}
             id="navbar-search"
           >
             <div className="relative mt-3 md:hidden">
@@ -135,11 +138,15 @@ function Navbar() {
                 <Link
                   to="/dashboard"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/" ? "md:text-blue-700 md:bg-blue-700 rounded" : ""
+                    location.pathname === "/dashboard"
+                      ? "md:text-blue-700 md:bg-blue-700 text-blue-700 bg-blue-700"
+                      : ""
                   }`}
-                  aria-current={location.pathname === "/" ? "page" : undefined}
-               
-                  >
+                  aria-current={
+                    location.pathname === "/dashboard" ? "page" : undefined
+                  }
+                  onClick={closeMenu}
+                >
                   Dashboard
                 </Link>
               </li>
@@ -147,8 +154,11 @@ function Navbar() {
                 <Link
                   to="/notes"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/notes" ? "md:text-blue-700 md:bg-blue-700 rounded" : ""
+                    location.pathname === "/notes"
+                      ? "md:text-blue-700 md:bg-blue-700 text-blue-700 bg-blue-700"
+                      : ""
                   }`}
+                  onClick={closeMenu}
                 >
                   Notes
                 </Link>
@@ -157,8 +167,11 @@ function Navbar() {
                 <Link
                   to="/attendance"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/attendance" ? "md:text-blue-700 md:bg-blue-700 rounded" : ""
+                    location.pathname === "/attendance"
+                      ? "md:text-blue-700 md:bg-blue-700 text-blue-700 bg-blue-700"
+                      : ""
                   }`}
+                  onClick={closeMenu}
                 >
                   Attendance
                 </Link>
@@ -167,8 +180,11 @@ function Navbar() {
                 <Link
                   to="/group"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/group" ? "md:text-blue-700 md:bg-blue-700 rounded" : ""
+                    location.pathname === "/group"
+                      ? "md:text-blue-700 md:bg-blue-700 text-blue-700 bg-blue-700"
+                      : ""
                   }`}
+                  onClick={closeMenu}
                 >
                   Group
                 </Link>
@@ -177,24 +193,28 @@ function Navbar() {
                 <Link
                   to="/courses"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/courses" ? "md:text-blue-700 md:bg-blue-700 rounded-lg" : ""
+                    location.pathname === "/courses"
+                      ? "md:text-blue-700 md:bg-blue-700 text-blue-700 bg-blue-700"
+                      : ""
                   }`}
+                  onClick={closeMenu}
                 >
                   Courses
                 </Link>
               </li>
-
               <li>
                 <Link
                   to="/board"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${
-                    location.pathname === "/board" ? "md:text-blue-700 md:bg-blue-700 rounded-lg" : ""
+                    location.pathname === "/board"
+                      ? "md:text-blue-700 md:bg-blue-700 text-blue-700 bg-blue-700"
+                      : ""
                   }`}
+                  onClick={closeMenu}
                 >
                   Board
                 </Link>
               </li>
-              
             </ul>
           </div>
         </div>

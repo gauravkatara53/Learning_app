@@ -66,7 +66,7 @@ const SearchForm = ({ onSearch }) => {
             max="8"
           />
           <div className="flex gap-2">
-            <Link to="/">
+            <Link to="/notes">
               <button
                 type="button"
                 className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"
@@ -80,7 +80,7 @@ const SearchForm = ({ onSearch }) => {
             >
               Search
             </button>
-            <Link to="/upload">
+            <Link to="/upload/pyq">
               <button
                 type="button"
                 className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"

@@ -16,6 +16,7 @@ import PDFList from "./Components/PYQ/PDFList";
 import SearchNotesForm from "./Components/NOTES/SearchNotesForm";
 import NotesList from "./Components/NOTES/NotesList";
 import AdminUploadNotes from "./Components/NOTES/AdminUploadNotes";
+import Footer from "./Components/Footer";
 
 function App() {
   const [pdfs, setPdfs] = useState([]);
@@ -52,9 +53,9 @@ function App() {
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/group" element={<Group />} />
           <Route path="/board" element={<Board />} />
-          <Route path="/upload" element={<AdminUpload />} />
+          <Route path="/upload/pyq" element={<AdminUpload />} />
           <Route
-            path="/search"
+            path="/search/pyq"
             element={
               <div>
                 <SearchForm onSearch={handleSearchPdfs} />
@@ -62,9 +63,9 @@ function App() {
               </div>
             }
           />
-          <Route path="/upload-notes" element={<AdminUploadNotes />} />
+          <Route path="/upload/notes" element={<AdminUploadNotes />} />
           <Route
-            path="/search-notes"
+            path="/search/notes"
             element={
               <div>
                 <SearchNotesForm onSearch={handleSearchNotes} />
