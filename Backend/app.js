@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
+const BASE_URL = process.env.BASE_URL;
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -73,7 +74,7 @@ const upload = multer({ storage });
 app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.body;
-    const pdfUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+    const pdfUrl = `${BASE_URL}/uploads/${req.file.filename}`;
     const question = new Question({ courseName, year, term, semester, pdfUrl });
     await question.save();
     res.json(question);
@@ -86,7 +87,7 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
 app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, term, semester } = req.body;
-    const pdfUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+    const pdfUrl = `${BASE_URL}/uploads/${req.file.filename}`;
     const note = new Notes({ courseName, term, semester, pdfUrl });
     await note.save();
     res.json(note);
