@@ -4,17 +4,27 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
+
+// Ensure the uploads directory exists
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+}
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(uploadsDir));
 
 // Connect to MongoDB
-mongoose.connect("mongodb://localhost:27017/pyq", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect("mongodb://localhost:27017/pyq", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 // Question Schema
 const QuestionSchema = new mongoose.Schema({
@@ -40,24 +50,22 @@ const Notes = mongoose.model("Notes", NotesSchema);
 // Multer setup for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Specify the directory where files should be uploaded
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}-${
       file.originalname
     }`;
-    cb(null, uniqueSuffix); // Ensure unique filenames to prevent overwriting
+    cb(null, uniqueSuffix);
   },
 });
 
 const upload = multer({ storage });
 
-// Route to handle file uploads for questions
 app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.body;
     const pdfUrl = `http://localhost:3000/uploads/${req.file.filename}`;
-
     const question = new Question({ courseName, year, term, semester, pdfUrl });
     await question.save();
     res.json(question);
@@ -67,12 +75,10 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   }
 });
 
-// Route to handle file uploads for notes
 app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, term, semester } = req.body;
     const pdfUrl = `http://localhost:3000/uploads/${req.file.filename}`;
-
     const note = new Notes({ courseName, term, semester, pdfUrl });
     await note.save();
     res.json(note);
@@ -82,24 +88,14 @@ app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   }
 });
 
-// Route to fetch questions based on query parameters
 app.get("/questions", async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.query;
     let query = {};
-
-    if (courseName) {
-      query.courseName = courseName;
-    }
-    if (year) {
-      query.year = year;
-    }
-    if (term) {
-      query.term = term;
-    }
-    if (semester) {
-      query.semester = semester;
-    }
+    if (courseName) query.courseName = courseName;
+    if (year) query.year = year;
+    if (term) query.term = term;
+    if (semester) query.semester = semester;
 
     const questions = await Question.find(query);
     res.json(questions);
@@ -109,21 +105,13 @@ app.get("/questions", async (req, res) => {
   }
 });
 
-// Route to fetch notes based on query parameters
 app.get("/notes", async (req, res) => {
   try {
     const { courseName, term, semester } = req.query;
     let query = {};
-
-    if (courseName) {
-      query.courseName = courseName;
-    }
-    if (term) {
-      query.term = term;
-    }
-    if (semester) {
-      query.semester = semester;
-    }
+    if (courseName) query.courseName = courseName;
+    if (term) query.term = term;
+    if (semester) query.semester = semester;
 
     const notes = await Notes.find(query);
     res.json(notes);

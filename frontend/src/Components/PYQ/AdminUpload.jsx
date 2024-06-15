@@ -20,7 +20,7 @@ const AdminUpload = () => {
     formData.append("pdf", file);
 
     try {
-      const response = await fetch("http://localhost:3000/upload", {
+      const response = await fetch("http://localhost:3000/upload/question", {
         method: "POST",
         body: formData,
       });
@@ -56,6 +56,7 @@ const AdminUpload = () => {
 
   return (
     <div>
+      <Navbar />
       <div className="pt-4 px-4">
         <div className="flex flex-col items-center bg-gray-900 p-8 rounded-lg shadow-md">
           <h2 className="text-4xl text-white mb-6">Upload Exam Paper</h2>
