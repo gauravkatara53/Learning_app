@@ -6,6 +6,9 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 // Ensure the uploads directory exists
 const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
@@ -17,9 +20,14 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static(uploadsDir));
 
+if (!process.env.MONGODB_URI) {
+  console.error("MONGODB_URI is not defined in the environment variables");
+  process.exit(1);
+}
+
 // Connect to MongoDB
 mongoose
-  .connect("mongodb://localhost:27017/pyq", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
