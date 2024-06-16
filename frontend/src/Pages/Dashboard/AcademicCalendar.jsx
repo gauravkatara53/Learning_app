@@ -78,8 +78,17 @@ function AcademicCalendar() {
       const event = events.find(
         (event) => event.date.toDateString() === date.toDateString()
       );
-      return event ? "bg-yellow-300 text-black" : null;
+      if (event) {
+        return "bg-yellow-500 text-white"; // Change background and text color for event dates
+      } else if (
+        date.getDate() === new Date().getDate() &&
+        date.getMonth() === new Date().getMonth() &&
+        date.getFullYear() === new Date().getFullYear()
+      ) {
+        return "bg-blue-500 text-white"; // Change background and text color for current date
+      }
     }
+    return null;
   };
 
   const onDateClick = (date) => {
