@@ -103,7 +103,7 @@ app.get("/questions", async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.query;
     let query = {};
-    if (courseName) query.courseName = courseName;
+    if (courseName) query.courseName = { $regex: new RegExp(courseName, "i") };
     if (year) query.year = year;
     if (term) query.term = term;
     if (semester) query.semester = semester;
@@ -121,7 +121,7 @@ app.get("/notes", async (req, res) => {
   try {
     const { courseName, term, semester } = req.query;
     let query = {};
-    if (courseName) query.courseName = courseName;
+    if (courseName) query.courseName = { $regex: new RegExp(courseName, "i") };
     if (term) query.term = term;
     if (semester) query.semester = semester;
 
