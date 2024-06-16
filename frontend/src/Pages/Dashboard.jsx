@@ -164,11 +164,9 @@ function AcademicCalendar() {
     <div>
       <Calendar onClickDay={onDateClick} tileClassName={tileClassName} />
       {selectedDate && (
-        <div className="event-details bg-gray-800 dark:bg-gray-900 rounded-lg p-4 mt-4">
-          <h3 className="text-xl font-semibold text-white">
-            {selectedDate.title}
-          </h3>
-          <p className="text-gray-400">{selectedDate.description}</p>
+        <div className="event-details  bg-yellow-700 border-4 border-red-100 dark:bg-yellow-700 rounded-lg p-4 mt-4 text-gray-100">
+          <h3 className="text-xl font-semibold">{selectedDate.title}</h3>
+          <p className="text-gray-300">{selectedDate.description}</p>
         </div>
       )}
     </div>
