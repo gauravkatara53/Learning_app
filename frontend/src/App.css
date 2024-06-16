@@ -1,3 +1,7 @@
-body{
-  background-color: #2C2E3A;
+body {
+  background-color: #2c2e3a;
+}
+.react-calendar__tile--highlight {
+  background-color: #ffeb3b; /* Yellow background */
+  color: black; /* Black text */
 }

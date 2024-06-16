@@ -13,7 +13,7 @@
     "konva": "^9.3.11",
     "razorpay": "^2.9.4",
     "react": "^18.2.0",
-    "react-canvas-draw": "^1.2.1",
+    "react-calendar": "^5.0.0",
     "react-dom": "^18.2.0",
     "react-konva": "^18.2.10",
     "react-router-dom": "^6.23.1",

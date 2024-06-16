@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 function Greeting() {
   const currentDate = new Date();
@@ -42,7 +44,7 @@ function News({ newsItems }) {
   }, [newsItems]);
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4">
+    <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 h-full">
       <h2 className="text-xl font-semibold text-white mb-2">News 👇</h2>
       <div className="news-container h-40 overflow-hidden relative">
         {newsItems.map((item, index) => (
@@ -71,10 +73,111 @@ function News({ newsItems }) {
   );
 }
 
+function AcademicCalendar() {
+  const events = [
+    {
+      date: new Date(2024, 4, 25),
+      title: "Summer Training/ Summer Break (Except M.Tech, PhD)",
+      description: "25.05.2024 to 23.07.2024 (Saturday-Tuesday)",
+    },
+    {
+      date: new Date(2024, 4, 25),
+      title: "Summer Vacation for Regular Faculty",
+      description: "25.05.2024 to 23.07.2024 (Saturday-Tuesday)",
+    },
+    {
+      date: new Date(2024, 4, 30),
+      title:
+        "Online Registration for Spring Semester Supplementary Examinations",
+      description: "30.05.2024 to 31.05.2024 (Thursday - Friday)",
+    },
+    {
+      date: new Date(2024, 5, 4),
+      title: "Supplementary Examinations for Spring Semester",
+      description: "04.06.2024 to 10.06.2024 (Tuesday - Monday)",
+    },
+    {
+      date: new Date(2024, 5, 10),
+      title:
+        "Last date for Completion and Evaluation of M.Tech Thesis for 4th Sem",
+      description: "10.06.2024 (Monday)",
+    },
+    {
+      date: new Date(2024, 5, 14),
+      title:
+        "Last date of Submission of Grades/marks in Samarth for Spring Semester Supplementary Examinations and M.Tech Thesis for 4th Sem",
+      description: "14.06.2024 (Friday)",
+    },
+    {
+      date: new Date(2024, 5, 17),
+      title:
+        "DAC meeting for Spring Semester Supplementary Examinations and M.Tech Thesis for 4th Sem",
+      description: "17.06.2024 (Monday)",
+    },
+    {
+      date: new Date(2024, 5, 18),
+      title:
+        "PGPEC meeting and publications of results for Spring Semester Supplementary Examinations and M.Tech Thesis for 4th Sem",
+      description: "18.06.2024 (Tuesday)",
+    },
+    {
+      date: new Date(2024, 6, 8),
+      title: "Autumn Semester Fee Payment of all Programs",
+      description: "08.07.2024 to 15.07.2024 (Without Late Fee)",
+    },
+    {
+      date: new Date(2024, 6, 16),
+      title: "Autumn Semester Fee Payment of all Programs",
+      description: "16.07.2024 to 22.07.2024 (With Late Fee)",
+    },
+    {
+      date: new Date(2024, 6, 24),
+      title: "Registration for Autumn Semester of all Programs",
+      description: "24.07.2024 to 26.07.2024 (Wednesday-Friday)",
+    },
+    {
+      date: new Date(2024, 6, 29),
+      title: "Commencement of all classes for Autumn Semester",
+      description: "29.07.2024 (Monday)",
+    },
+  ];
+
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const tileClassName = ({ date, view }) => {
+    if (view === "month") {
+      const event = events.find(
+        (event) => event.date.toDateString() === date.toDateString()
+      );
+      return event ? "bg-yellow-300 text-black" : null;
+    }
+  };
+
+  const onDateClick = (date) => {
+    const event = events.find(
+      (event) => event.date.toDateString() === date.toDateString()
+    );
+    setSelectedDate(event);
+  };
+
+  return (
+    <div>
+      <Calendar onClickDay={onDateClick} tileClassName={tileClassName} />
+      {selectedDate && (
+        <div className="event-details bg-gray-800 dark:bg-gray-900 rounded-lg p-4 mt-4">
+          <h3 className="text-xl font-semibold text-white">
+            {selectedDate.title}
+          </h3>
+          <p className="text-gray-400">{selectedDate.description}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function Dashboard() {
   const location = useLocation();
 
-  // Sample news data with more realistic content
   const newsItems = [
     {
       id: 1,
@@ -129,91 +232,94 @@ function Dashboard() {
           <News newsItems={newsItems} />
         </div>
         <div>
-          <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 mb-4">
-            <h2 className="text-xl font-semibold text-white mb-2 pb-1">
-              Quick Links
-            </h2>
-            <div className="">
-              <ul className="flex flex-col space-y-2 ">
-                <li>
-                  <Link
-                    to="/search/notes"
-                    className={`block py-2 px-3 text-gray-300  hover:bg-gray-700 border border-gray-700 rounded-lg p-4  hover:text-blue-500 ${
-                      location.pathname === "/search/notes"
-                        ? "bg-blue-600  text-white"
-                        : ""
-                    }`}
-                  >
-                    Notes
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/search/pyq"
-                    className={`block py-2 px-3 text-gray-300  hover:bg-gray-700 border border-gray-700 rounded-lg p-4 hover:text-blue-500 ${
-                      location.pathname === "/search/pyq"
-                        ? "bg-blue-600 text-white"
-                        : ""
-                    }`}
-                  >
-                    Previous Year Questions (PYQs)
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/attendance"
-                    className={`block py-2 px-3 text-gray-300 border border-gray-700 rounded-lg p-4  hover:bg-gray-700 hover:text-blue-500 ${
-                      location.pathname === "/attendance"
-                        ? "bg-blue-600 text-white"
-                        : ""
-                    }`}
-                  >
-                    Attendance
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/calendar"
-                    className={`block py-2 px-3 text-gray-300  border border-gray-700 rounded-lg hover:bg-gray-700 hover:text-blue-500 ${
-                      location.pathname === "/calendar"
-                        ? "bg-blue-600 text-white"
-                        : ""
-                    }`}
-                  >
-                    Events Calendar
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/community"
-                    className={`block py-2 px-3 text-gray-300  border border-gray-700 rounded-lg hover:bg-gray-700 hover:text-blue-500 ${
-                      location.pathname === "/community"
-                        ? "bg-blue-600 text-white"
-                        : ""
-                    }`}
-                  >
-                    Community Forum
-                  </Link>
-                </li>
-              </ul>
-            </div>
+          <AcademicCalendar />
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+        <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4">
+          <h2 className="text-xl font-semibold text-white mb-2 pb-1">
+            Quick Links
+          </h2>
+          <div className="">
+            <ul className="flex flex-col space-y-2 ">
+              <li>
+                <Link
+                  to="/search/notes"
+                  className={`block py-2 px-3 text-gray-300 hover:bg-gray-700 border border-gray-700 rounded-lg p-4 hover:text-blue-500 ${
+                    location.pathname === "/search/notes"
+                      ? "bg-blue-600 text-white"
+                      : ""
+                  }`}
+                >
+                  Notes
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/search/pyq"
+                  className={`block py-2 px-3 text-gray-300 hover:bg-gray-700 border border-gray-700 rounded-lg p-4 hover:text-blue-500 ${
+                    location.pathname === "/search/pyq"
+                      ? "bg-blue-600 text-white"
+                      : ""
+                  }`}
+                >
+                  Previous Year Questions (PYQs)
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/attendance"
+                  className={`block py-2 px-3 text-gray-300 border border-gray-700 rounded-lg p-4 hover:bg-gray-700 hover:text-blue-500 ${
+                    location.pathname === "/attendance"
+                      ? "bg-blue-600 text-white"
+                      : ""
+                  }`}
+                >
+                  Attendance
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/calendar"
+                  className={`block py-2 px-3 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:text-blue-500 ${
+                    location.pathname === "/calendar"
+                      ? "bg-blue-600 text-white"
+                      : ""
+                  }`}
+                >
+                  Events Calendar
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/community"
+                  className={`block py-2 px-3 text-gray-300 border border-gray-700 rounded-lg hover:bg-gray-700 hover:text-blue-500 ${
+                    location.pathname === "/community"
+                      ? "bg-blue-600 text-white"
+                      : ""
+                  }`}
+                >
+                  Community Forum
+                </Link>
+              </li>
+            </ul>
           </div>
-          <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 mb-4">
-            <h2 className="text-lg font-semibold text-white mb-2">
-              Featured Content
-            </h2>
-            <div className="p-2 border border-gray-700 rounded-lg">
-              <p className="text-gray-300">
-                Check out our latest webinar on AI in Education and register now
-                to secure your spot!
-              </p>
-              <Link
-                to="/webinar"
-                className="block mt-2 py-1 px-3 text-blue-500 rounded hover:bg-gray-700 hover:text-white"
-              >
-                Learn More
-              </Link>
-            </div>
+        </div>
+        <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 mb-4">
+          <h2 className="text-lg font-semibold text-white mb-2">
+            Featured Content
+          </h2>
+          <div className="p-2 border border-gray-700 rounded-lg">
+            <p className="text-gray-300">
+              Check out our latest webinar on AI in Education and register now
+              to secure your spot!
+            </p>
+            <Link
+              to="/webinar"
+              className="block mt-2 py-1 px-3 text-blue-500 rounded hover:bg-gray-700 hover:text-white"
+            >
+              Learn More
+            </Link>
           </div>
         </div>
       </div>
