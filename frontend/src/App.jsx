@@ -22,8 +22,13 @@ function App() {
   const [pdfs, setPdfs] = useState([]);
   const [notes, setNotes] = useState([]);
 
-  const handleSearchPdfs = async ({ courseName, year, term }) => {
-    const query = new URLSearchParams({ courseName, year, term }).toString();
+  const handleSearchPdfs = async ({ courseName, year, term, semester }) => {
+    const query = new URLSearchParams({
+      courseName,
+      year,
+      term,
+      semester,
+    }).toString();
     const response = await fetch(`http://localhost:3000/questions?${query}`);
     const data = await response.json();
     setPdfs(data);
