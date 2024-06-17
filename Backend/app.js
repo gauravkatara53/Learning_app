@@ -10,7 +10,6 @@ require("dotenv").config(); // Load environment variables
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const BASE_URL = process.env.BASE_URL;
 
 // Middleware
 app.use(cors());
@@ -28,8 +27,9 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "uploads",
-    format: async (req, file) => file.mimetype.split("/")[1], // use original file format
-    public_id: (req, file) => `${Date.now()}-${file.originalname}`,
+    resource_type: "raw", // Ensure the resource type is set to raw for non-image files
+    public_id: (req, file) =>
+      `${Date.now()}-${file.originalname.replace(/\.[^/.]+$/, "")}`, // remove the extension from the original filename
   },
 });
 
@@ -69,7 +69,7 @@ const Notes = mongoose.model("Notes", NotesSchema);
 app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.body;
-    const pdfUrl = req.file.path; // or req.file.url if using Cloudinary's URL
+    const pdfUrl = req.file.path; // Store the Cloudinary URL or path in the database
     const question = new Question({ courseName, year, term, semester, pdfUrl });
     await question.save();
     res.json(question);
@@ -83,7 +83,7 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
 app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, term, semester } = req.body;
-    const pdfUrl = req.file.path; // or req.file.url if using Cloudinary's URL
+    const pdfUrl = req.file.path; // Store the Cloudinary URL or path in the database
     const note = new Notes({ courseName, term, semester, pdfUrl });
     await note.save();
     res.json(note);
