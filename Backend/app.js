@@ -1,13 +1,12 @@
-// Load dotenv config
-require("dotenv").config();
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
+
+require("dotenv").config(); // Load environment variables
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,21 +16,20 @@ const BASE_URL = process.env.BASE_URL;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Multer setup for file uploads
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir);
-}
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}-${
-      file.originalname
-    }`;
-    cb(null, uniqueSuffix);
+// Configure Multer Storage for Cloudinary
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "uploads",
+    format: async (req, file) => file.mimetype.split("/")[1], // use original file format
+    public_id: (req, file) => `${Date.now()}-${file.originalname}`,
   },
 });
 
@@ -67,14 +65,11 @@ const NotesSchema = new mongoose.Schema({
 
 const Notes = mongoose.model("Notes", NotesSchema);
 
-// Routes
-app.use("/uploads", express.static(uploadsDir));
-
 // Route for uploading questions
 app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.body;
-    const pdfUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    const pdfUrl = req.file.path; // or req.file.url if using Cloudinary's URL
     const question = new Question({ courseName, year, term, semester, pdfUrl });
     await question.save();
     res.json(question);
@@ -88,7 +83,7 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
 app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   try {
     const { courseName, term, semester } = req.body;
-    const pdfUrl = `${BASE_URL}/uploads/${req.file.filename}`;
+    const pdfUrl = req.file.path; // or req.file.url if using Cloudinary's URL
     const note = new Notes({ courseName, term, semester, pdfUrl });
     await note.save();
     res.json(note);
@@ -136,6 +131,4 @@ app.get("/notes", async (req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  const fileUrl = `${BASE_URL}`;
-  console.log("Generated file URL:", fileUrl);
 });
