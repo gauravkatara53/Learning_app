@@ -3,3 +3,4 @@
 
 # Ignore .env file
 .env
+/config
