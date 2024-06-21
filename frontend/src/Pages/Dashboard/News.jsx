@@ -66,30 +66,29 @@ function News() {
   }, [newsItems]);
 
   return (
-    <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 h-full">
-      <h2 className="text-xl font-semibold text-white mb-2">News 👇</h2>
-      <div className="news-container h-40 overflow-hidden relative">
-        {newsItems.map((item, index) => (
-          <div
-            key={item.id}
-            className={`news-item absolute top-0 left-0 w-full ${
-              index === currentIndex
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-full"
-            } transition-opacity duration-1000`}
-          >
-            <div className="bg-gray-800 dark:bg-gray-700 rounded-lg shadow p-4">
-              <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-              <p className="text-sm text-gray-300">{item.content}</p>
-              <p className="text-xs text-gray-400 mt-1">{item.date}</p>
+    <div className="">
+      <h1 className="text-4xl font-bold text-gray-100 mb-6">NEWS</h1>
+      <div className="bg-white rounded-lg shadow-lg p-6">
+        <div className="news-container h-56 overflow-hidden relative">
+          {newsItems.map((item, index) => (
+            <div
+              key={item.id}
+              className={`news-item absolute top-0 left-0 w-full transition-all duration-1000 ${
+                index === currentIndex
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-full"
+              }`}
+            >
+              <div className="bg-gray-50 rounded-lg shadow-md p-6">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-base text-gray-700 mb-4">{item.content}</p>
+                <p className="text-sm text-gray-500">{item.date}</p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-      <div className="mt-4 text-right">
-        <Link to="/dashboard" className="text-gray-400 hover:text-blue-500">
-          More
-        </Link>
+          ))}
+        </div>
       </div>
     </div>
   );

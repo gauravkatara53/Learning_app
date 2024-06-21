@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
+import dsa from "../IMG/dsa.jpeg";
+import ml from "../IMG/ml.jpg";
+import webdev from "../IMG/webdev.jpg";
 
 const Courses = () => {
   const [coursePurchased, setCoursePurchased] = useState({
@@ -35,7 +39,7 @@ const Courses = () => {
     }
 
     const options = {
-      key: "rzp_test_Y5pTnhyT5RQXvM", // Your Razorpay key ID
+      key: "rzp_test_r0KzTiIrEwf7Qc", // Your Razorpay key ID
       amount: amount * 100, // Amount in paise
       currency: "INR",
       name: "TPOIC PVT L.T.D",
@@ -71,6 +75,7 @@ const Courses = () => {
 
   return (
     <div>
+      <Navbar></Navbar>
       <section>
         <div className="container mx-auto p-4 my-8">
           <div className="flex flex-col items-center">
@@ -90,7 +95,7 @@ const Courses = () => {
                   <img
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7zWlYcGsOdzAR7VBnFxZn1PliyLPDQDtP5VrgKNQSoYoLUGYTZ2Y1gtsPmLjsO4wo-gk&usqp=CAU"
                     className="w-full h-auto mt-2 rounded-lg"
-                    alt="CSE"
+                    alt="dsa"
                   />
                 </a>
                 <div className="p-4 flex space-x-2">
@@ -127,7 +132,7 @@ const Courses = () => {
                     src="https://image.pbs.org/video-assets/XFRgNfM-asset-mezzanine-16x9-Qo6oLrn.jpg?focalcrop=1200x630x50x10&format=auto
                    "
                     className="w-full h-auto mt-2 rounded-lg"
-                    alt="Electrical"
+                    alt="ml"
                   />
                 </a>
                 <div className="p-4 flex space-x-2">
@@ -163,7 +168,7 @@ const Courses = () => {
                   <img
                     src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20200214165928/Web-Development-Course-Thumbnail.jpg"
                     className="w-full h-auto mt-2 rounded-lg"
-                    alt="Physics"
+                    alt="web"
                   />
                 </a>
                 <div className="p-4 flex space-x-2">
@@ -190,6 +195,7 @@ const Courses = () => {
           </div>
         </div>
       </section>
+      <Footer></Footer>
     </div>
   );
 };

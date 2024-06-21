@@ -4,16 +4,11 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Pushes the footer to the bottom */}
-      <div className="flex-grow"></div>
-      <footer className="bg-gray-900 text-gray-200 p-4 text-center">
-        Made with{" "}
-        <span role="img" aria-label="heart">
-          ❤️
-        </span>{" "}
-        and <code>&lt;/&gt;</code> by KATARA
-      </footer>
+    <div className="flex justify-center mt-8">
+      <p className="text-gray-400">CODE BY &nbsp;</p>
+      <p>
+        <a className="font-bold text-blue-400">KATARA</a>
+      </p>
     </div>
   );
 };

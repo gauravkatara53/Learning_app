@@ -17,6 +17,7 @@ import SearchNotesForm from "./Components/NOTES/SearchNotesForm";
 import NotesList from "./Components/NOTES/NotesList";
 import AdminUploadNotes from "./Components/NOTES/AdminUploadNotes";
 import Footer from "./Components/Footer";
+import Community from "./Pages/Community";
 
 function App() {
   const [pdfs, setPdfs] = useState([]);
@@ -48,11 +49,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Navbar />
         <Routes>
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
+
           <Route path="/notes" element={<NotePage />} />
           <Route path="/courses" element={<Courses />} />
           <Route path="/attendance" element={<Attendance />} />
@@ -78,6 +77,9 @@ function App() {
               </div>
             }
           />
+          <Route path="/community" element={<Community />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
       </div>
     </Router>

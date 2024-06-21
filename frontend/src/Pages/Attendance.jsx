@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 const Attendance = () => {
   const [totalClasses, setTotalClasses] = useState("");
@@ -84,13 +85,14 @@ const Attendance = () => {
 
   return (
     <div>
-      <div className="bg-black text-white flex items-center justify-center min-h-screen">
-        <div className="w-full max-w-md mx-auto p-4">
-          <div className="bg-black p-8 rounded shadow-md w-full">
-            <h1 className="text-4xl font-semibold text-center mb-2">
+      <Navbar></Navbar>
+      <div className="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen">
+        <div className="w-full max-w-md mx-auto p-6">
+          <div className="bg-white p-8 rounded shadow-md w-full">
+            <h1 className="text-4xl font-semibold text-center mb-4">
               Attendance Calculator
             </h1>
-            <p className="text-center text-gray-400 mb-8">
+            <p className="text-center text-gray-600 mb-8">
               You can enter any desired percentage you want
             </p>
             <form
@@ -108,7 +110,7 @@ const Attendance = () => {
                 <input
                   type="number"
                   id="totalClasses"
-                  className="shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 leading-tight focus:outline-none focus:shadow-outline bg-black text-white text-lg"
+                  className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:border-blue-300 text-gray-800 text-lg"
                   placeholder="Enter total classes"
                   value={totalClasses}
                   onChange={(e) => setTotalClasses(e.target.value)}
@@ -125,7 +127,7 @@ const Attendance = () => {
                 <input
                   type="number"
                   id="attendedClasses"
-                  className="shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 leading-tight focus:outline-none focus:shadow-outline bg-black text-white text-lg"
+                  className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:border-blue-300 text-gray-800 text-lg"
                   placeholder="Enter attended classes"
                   value={attendedClasses}
                   onChange={(e) => setAttendedClasses(e.target.value)}
@@ -142,7 +144,7 @@ const Attendance = () => {
                 <input
                   type="number"
                   id="desiredAttendance"
-                  className="shadow appearance-none border border-gray-700 rounded w-full py-3 px-4 leading-tight focus:outline-none focus:shadow-outline bg-black text-white text-lg"
+                  className="shadow appearance-none border border-gray-300 rounded w-full py-3 px-4 leading-tight focus:outline-none focus:ring focus:border-blue-300 text-gray-800 text-lg"
                   value={desiredAttendance}
                   onChange={(e) => setDesiredAttendance(e.target.value)}
                   placeholder="Enter desired attendance %"
@@ -151,7 +153,7 @@ const Attendance = () => {
               </div>
               <button
                 type="submit"
-                className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full text-lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full text-lg"
               >
                 Calculate
               </button>
@@ -162,19 +164,9 @@ const Attendance = () => {
               dangerouslySetInnerHTML={{ __html: result }}
             />
           </div>
-          <div className="flex justify-center mt-8">
-            <p className="text-gray-400">Made with ❤️ and code by &nbsp;</p>
-            <p>
-              <a
-                className="font-bold text-blue-400"
-                href="https://github.com/gauravkatara53/attendance_calculator"
-              >
-                KATARA
-              </a>
-            </p>
-          </div>
         </div>
       </div>
+      <Footer></Footer>
     </div>
   );
 };

@@ -79,15 +79,21 @@ function AcademicCalendar() {
         (event) => event.date.toDateString() === date.toDateString()
       );
       const today = new Date();
-      const isToday =
+      if (
         date.getDate() === today.getDate() &&
         date.getMonth() === today.getMonth() &&
-        date.getFullYear() === today.getFullYear();
-
-      if (isToday) {
-        return "bg-blue-500 text-white"; // Change background and text color for current date
+        date.getFullYear() === today.getFullYear() &&
+        event
+      ) {
+        return "bg-red-500 text-white"; // Red background for current date and event date match
       } else if (event) {
         return "bg-yellow-500 text-white"; // Change background and text color for event dates
+      } else if (
+        date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear()
+      ) {
+        return "bg-blue-500 text-white"; // Change background and text color for current date
       }
     }
     return null;
@@ -121,19 +127,51 @@ function AcademicCalendar() {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-white mb-4">Academic Calendar</h1>
+    <div className="">
+      <h1 className="text-3xl font-bold text-gray-100 mb-6">
+        Academic Calendar
+      </h1>
 
-      <Calendar
-        onClickDay={onDateClick}
-        tileClassName={tileClassName}
-        tileContent={tileContent}
-      />
+      <div className="bg-white shadow-lg rounded-lg p-4 mb-6">
+        <Calendar
+          onClickDay={onDateClick}
+          tileClassName={tileClassName}
+          tileContent={tileContent}
+          className="w-full mx-auto"
+        />
+      </div>
 
       {selectedDate && (
-        <div className="event-details bg-yellow-700 border-4 border-red-100 dark:bg-yellow-700 rounded-lg p-4 mt-4 text-gray-100">
-          <h3 className="text-xl font-semibold">{selectedDate.title}</h3>
-          <p className="text-gray-300">{selectedDate.description}</p>
+        <div className="rounded-md my-4  border-l-4 border-yellow-500 bg-yellow-100 p-4">
+          <div className="flex items-center justify-between space-x-4">
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-6 w-6"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </div>
+            <div>
+              <p className=" font-medium text-lg text-gray-700">
+                {selectedDate.title}
+              </p>
+              <p className="text-sm text-gray-600">
+                {selectedDate.description}
+              </p>
+            </div>
+            <div></div>
+          </div>
         </div>
       )}
     </div>

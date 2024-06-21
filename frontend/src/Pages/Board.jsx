@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 import Navbar from "../Components/Navbar";
+import Footer from "../Components/Footer";
 
 const DrawingBoard = () => {
   const [notes, setNotes] = useState([]);
@@ -14,7 +15,8 @@ const DrawingBoard = () => {
   };
 
   return (
-    <>
+    <div>
+      <Navbar></Navbar>
       <div className="min-h-screen  flex flex-col items-center p-4">
         <h1 className="text-3xl font-bold mb-4 text-white">
           Drawing and Notes Board
@@ -57,7 +59,8 @@ const DrawingBoard = () => {
           </div>
         </div>
       </div>
-    </>
+      <Footer></Footer>
+    </div>
   );
 };
 
