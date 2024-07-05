@@ -22,7 +22,7 @@
 
 ```
 Learning_app/
-├── client/            # Frontend code
+├── Frontend/            # Frontend code
 │   ├── public/
 │   └── src/
 ├── server/            # Backend code
