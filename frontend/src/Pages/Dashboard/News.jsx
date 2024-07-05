@@ -5,45 +5,44 @@ function News() {
   const newsItems = [
     {
       id: 1,
-      title: "New Feature Launch!",
+      title: "Off-Campus Hiring Up (June)",
       content:
-        "Exciting news! We have launched a new feature that allows users to collaborate seamlessly.",
-      date: "June 15, 2024",
+        "Skills focus leads to more off-campus opportunities. Don't just rely on college placements, explore job boards and networking events to find your perfect fit.",
+      date: "June '24",
     },
     {
       id: 2,
-      title: "Upcoming Webinar: AI in Education",
+      title: "TCS Hiring Engineers (June)",
       content:
-        "Join us for an insightful webinar on the impact of AI in the education sector. Register now!",
-      date: "June 18, 2024",
+        "Good news for engineering grads! TCS is actively recruiting, but many other companies are too. Research companies and tailor your resume for each application.",
+      date: "June '24",
     },
     {
       id: 3,
-      title: "Product Update: Improved Dashboard UX",
+      title: "Top Colleges: 100% Placement (June)",
       content:
-        "We've enhanced the user experience of our dashboard with a cleaner interface and faster performance.",
-      date: "June 20, 2024",
+        "Some colleges see impressive results. While your college's placement record is a factor, remember strong skills and a proactive approach are key to landing your dream job.",
+      date: "June '24",
     },
     {
       id: 4,
-      title: "Call for Feedback: New Course Curriculum",
+      title: "Niche Fields on Rise (June)",
       content:
-        "Provide your feedback on the new course curriculum. Your input shapes the future of our offerings.",
-      date: "June 22, 2024",
+        "Explore emerging programs with industry demand. Research salary trends and job outlook before choosing a niche field to ensure it aligns with your long-term goals.",
+      date: "June '24",
     },
     {
       id: 5,
-      title: "Industry Recognition: Best Educational Platform Award",
+      title: "Start-Up Focus (June)",
       content:
-        "We're proud to announce that our educational platform has received the Best Educational Platform award.",
-      date: "June 25, 2024",
+        "Many companies, like IIT Madras, report a surge in placements with startups. Consider connecting with incubators or attending startup job fairs. Startups offer exciting opportunities but may have different work cultures. Research the company well before applying.",
     },
     {
       id: 6,
-      title: "New Partnership: Strategic Collaboration with Tech Giants",
+      title: "International Opportunities (June)",
       content:
-        "We have entered into a strategic collaboration with leading tech giants to enhance our platform's capabilities.",
-      date: "June 28, 2024",
+        "News like IIT Madras placements show a rise in international offers. Explore programs that enhance global skills. Consider learning a new language or participating in international exchange programs to boost your resume for global opportunities.",
+      date: "June '24",
     },
   ];
 
@@ -60,7 +59,7 @@ function News() {
         );
         setIsVisible(true); // Show the next news item after a delay
       }, 1000); // Delay the next news item display for 1 second for smoother transition
-    }, 6000); // Change news every 6 seconds
+    }, 3000); // Change news every 6 seconds
 
     return () => clearInterval(interval);
   }, [newsItems]);

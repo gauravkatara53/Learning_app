@@ -24,7 +24,6 @@ const SearchNotesForm = ({ onSearch }) => {
 
   return (
     <div>
-      <Navbar />
       <form
         onSubmit={handleSubmit}
         className="flex flex-col items-center mt-4 mx-2 bg-white p-8 rounded-lg shadow-md border border-gray-300"
@@ -59,7 +58,7 @@ const SearchNotesForm = ({ onSearch }) => {
           max="8"
         />
         <div className="flex gap-2">
-          <Link to="/notes">
+          <Link to="/academic ">
             <button
               type="button"
               className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500"

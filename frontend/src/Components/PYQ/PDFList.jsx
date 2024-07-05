@@ -10,39 +10,39 @@ const PDFList = ({ pdfs }) => {
             <table className="min-w-full rounded-lg overflow-hidden bg-white text-gray-800 border border-gray-200">
               <thead className="bg-gray-800 text-white">
                 <tr>
-                  <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
+                  {/* <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                     Year
-                  </th>
+                  </th> */}
                   <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                     Course Name
                   </th>
-                  <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
+                  {/* <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                     Term
-                  </th>
-                  <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
+                  </th> */}
+                  {/* <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                     Semester
-                  </th>
-                  <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
+                  </th> */}
+                  <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300 border-l-2 border-gray-400">
                     Download
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-300">
+              <tbody className="divide-y divide-gray-200">
                 {pdfs.map((pdf, index) => (
                   <tr key={index} className="hover:bg-gray-100">
-                    <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
+                    {/* <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
                       {pdf.year}
-                    </td>
+                    </td> */}
                     <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
                       {pdf.courseName}
                     </td>
-                    <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
+                    {/* <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
                       {pdf.term}
-                    </td>
-                    <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
+                    </td> */}
+                    {/* <td className="py-4 px-2 sm:px-6 text-gray-800 border-b border-gray-300">
                       {pdf.semester}
-                    </td>
-                    <td className="py-4 px-2 sm:px-6 border-b border-gray-300">
+                    </td> */}
+                    <td className="py-4 px-2 sm:px-6 border-b border-gray-300 border-l-2 ">
                       <a
                         href={pdf.pdfUrl}
                         target="_blank"

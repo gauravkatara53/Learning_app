@@ -85,19 +85,46 @@ const Attendance = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
       <div className="bg-gray-100 text-gray-800 flex items-center justify-center min-h-screen">
-        <div className="w-full max-w-md mx-auto p-6">
+        <div className="w-full max-w-5xl mx-auto p-6">
           <div className="bg-white p-8 rounded shadow-md w-full">
             <h1 className="text-4xl font-semibold text-center mb-4">
               Attendance Calculator
             </h1>
-            <p className="text-center text-gray-600 mb-8">
-              You can enter any desired percentage you want
-            </p>
+            <div className="px-auto pb-8">
+              <div class="rounded-md border-l-4 border-yellow-500 bg-yellow-100 p-4">
+                <div class="flex items-center justify-between space-x-4">
+                  <div>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="h-6 w-6 text-yellow-600"
+                    >
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="8" x2="12" y2="12"></line>
+                      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium text-yellow-600">
+                      You can enter any desired percentage you want
+                    </p>
+                  </div>
+                  <div></div>
+                </div>
+              </div>
+            </div>
+
             <form
               id="attendanceForm"
-              className="space-y-6"
+              className="grid grid-cols-1 gap-4 md:grid-cols-3"
               onSubmit={calculateAttendance}
             >
               <div>
@@ -105,7 +132,7 @@ const Attendance = () => {
                   htmlFor="totalClasses"
                   className="block text-lg font-bold mb-2"
                 >
-                  Total Classes:
+                  Total Current Classes:
                 </label>
                 <input
                   type="number"
@@ -115,6 +142,7 @@ const Attendance = () => {
                   value={totalClasses}
                   onChange={(e) => setTotalClasses(e.target.value)}
                   required
+                  min="1"
                 />
               </div>
               <div>
@@ -132,6 +160,7 @@ const Attendance = () => {
                   value={attendedClasses}
                   onChange={(e) => setAttendedClasses(e.target.value)}
                   required
+                  min="0"
                 />
               </div>
               <div>
@@ -149,14 +178,18 @@ const Attendance = () => {
                   onChange={(e) => setDesiredAttendance(e.target.value)}
                   placeholder="Enter desired attendance %"
                   required
+                  min="0"
+                  max="100"
                 />
               </div>
-              <button
-                type="submit"
-                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full text-lg"
-              >
-                Calculate
-              </button>
+              <div className="md:col-span-3 flex justify-center mt-4">
+                <button
+                  type="submit"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline w-full md:w-1/3 text-lg"
+                >
+                  Calculate
+                </button>
+              </div>
             </form>
             <div
               id="result"
@@ -166,7 +199,7 @@ const Attendance = () => {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      <Footer />
     </div>
   );
 };

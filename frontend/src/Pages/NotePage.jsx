@@ -9,7 +9,6 @@ import pyq from "../IMG/pyq.jpg";
 const NotePage = () => {
   return (
     <>
-      <Navbar></Navbar>
       <div className="bg-gray-100 min-h-screen">
         <section className="container mx-auto px-4 py-8">
           <div className="flex flex-col items-center">
@@ -52,7 +51,7 @@ const NotePage = () => {
                 <div className="p-4">
                   <h5 className="text-2xl font-bold text-gray-800">CREDITS</h5>
                 </div>
-                <a href="/" className="relative block">
+                <Link to="/credit" className="relative block">
                   <img
                     src="https://img.freepik.com/free-vector/computer-graphics-advices-tips-watching-digital-design-masterclass-online-course-helpful-information-painting-exam-preparation_335657-3272.jpg?t=st=1718806736~exp=1718810336~hmac=e472b057d76e7b7e99affab5ca5ef90394f32845f9c517326271cfcdce619d02&w=1380"
                     className="w-full  object-cover"
@@ -62,7 +61,7 @@ const NotePage = () => {
                     <h5 className="text-3xl font-bold text-white">CREDITS</h5>
                   </div>
                   <div className="p-4"></div>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

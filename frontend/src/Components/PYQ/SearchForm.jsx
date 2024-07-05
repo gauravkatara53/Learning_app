@@ -36,11 +36,10 @@ const SearchForm = ({ onSearch }) => {
 
   return (
     <>
-      <Navbar></Navbar>
       <div className="pt-4 px-4">
         <form
           onSubmit={handleSubmit}
-          className={`pt-8 flex flex-col items-center p-8 rounded-lg shadow-md bg-white text-gray-900`}
+          className="pt-8 flex flex-col items-center p-8 rounded-lg shadow-md bg-white text-gray-900 border border-gray-300"
         >
           <h2 className="text-4xl mb-6">Search Exam Papers</h2>
           <input
@@ -48,7 +47,7 @@ const SearchForm = ({ onSearch }) => {
             placeholder="Course Name"
             value={courseName}
             onChange={(e) => setCourseName(e.target.value)}
-            className={`rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2`}
+            className="rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2"
             required
           />
           <input
@@ -56,7 +55,7 @@ const SearchForm = ({ onSearch }) => {
             placeholder="Year"
             value={year}
             onChange={(e) => setYear(e.target.value)}
-            className={`rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2`}
+            className="rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2"
             required
             min="2002"
             max="2024"
@@ -64,7 +63,7 @@ const SearchForm = ({ onSearch }) => {
           <select
             value={term}
             onChange={(e) => setTerm(e.target.value)}
-            className={`rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2`}
+            className="rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2"
             required
           >
             <option value="" disabled className="text-gray-400">
@@ -82,23 +81,23 @@ const SearchForm = ({ onSearch }) => {
             placeholder="Semester"
             value={semester}
             onChange={(e) => setSemester(e.target.value)}
-            className={`rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2`}
+            className="rounded-lg px-4 py-2 mb-4 w-64 bg-gray-200 placeholder-gray-600 focus:ring-blue-500 focus:outline-none focus:ring-2"
             required
             min="1"
             max="8"
           />
           <div className="flex gap-2">
-            <Link to="/notes">
+            <Link to="/academic">
               <button
                 type="button"
-                className={`bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400`}
+                className="bg-gray-600 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400"
               >
                 Back
               </button>
             </Link>
             <button
               type="submit"
-              className={`bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400`}
+              className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               disabled={isLoading} // Disable button while loading
             >
               {isLoading ? (
@@ -129,7 +128,7 @@ const SearchForm = ({ onSearch }) => {
             <Link to="/upload/pyq">
               <button
                 type="button"
-                className={`bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400`}
+                className="bg-green-600 hover:bg-green-800 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
               >
                 Upload
               </button>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import Greeting from "./Dashboard/Greeting";
 import News from "./Dashboard/News";
 import AcademicCalendar from "./Dashboard/AcademicCalendar";
@@ -11,14 +12,24 @@ import Navbar from "../Components/Navbar";
 
 function Dashboard() {
   const [selectedTab, setSelectedTab] = useState("custom1");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [chatGPTResponse, setChatGPTResponse] = useState("");
 
   const newsItems = [
     // ... Your newsItems array
   ];
 
+  const handleSearch = async () => {
+    try {
+      const response = await axios.post("/api/chatgpt", { query: searchQuery });
+      setChatGPTResponse(response.data.response);
+    } catch (error) {
+      console.error("Error fetching data from ChatGPT API:", error);
+    }
+  };
+
   return (
     <div className="overflow-x-hidden">
-      <Navbar></Navbar>
       <div
         style={{
           background: "hsla(201, 66%, 30%, 1)",
@@ -64,9 +75,14 @@ function Dashboard() {
             <input
               type="text"
               placeholder="Notes, PYQ's, Courses, more ..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-grow bg-transparent outline-none text-gray-700 text-sm"
             />
-            <button className="ml-3 bg-[#7fd0c7] hover:bg-[#1e5f81] text-white px-4 py-2 rounded-full text-sm focus:outline-none">
+            <button
+              onClick={handleSearch}
+              className="ml-3 bg-[#7fd0c7] hover:bg-[#1e5f81] text-white px-4 py-2 rounded-full text-sm focus:outline-none"
+            >
               Search
             </button>
           </div>
@@ -82,33 +98,26 @@ function Dashboard() {
         </div>
       </div>
 
-      {/* <div className="max-w-screen-xl mx-auto p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <QuickLinks />
-        <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 mb-4">
-          <h2 className="text-lg font-semibold text-white mb-2">
-            Featured Content
-          </h2>
-          <div className="p-2 border border-gray-700 rounded-lg">
-            <p className="text-gray-300">
-              Check out our latest webinar on AI in Education and register now
-              to secure your spot!
-            </p>
-            <Link
-              to="/webinar"
-              className="block mt-2 py-1 px-3 text-blue-500 rounded hover:bg-gray-700 hover:text-white"
-            >
-              Learn More
-            </Link>
+      {/* ChatGPT Response */}
+      {chatGPTResponse && (
+        <div className="max-w-screen-xl mx-auto p-8">
+          <div className="bg-gray-900 dark:bg-gray-900 rounded-lg shadow p-4 mb-4">
+            <h2 className="text-lg font-semibold text-white mb-2">
+              ChatGPT Response
+            </h2>
+            <div className="p-2 border border-gray-700 rounded-lg">
+              <p className="text-gray-300">{chatGPTResponse}</p>
+            </div>
           </div>
         </div>
-      </div> */}
-
-      {/* New Section with Tabs */}
+      )}
 
       <BrowseTopics></BrowseTopics>
       <FAQSection></FAQSection>
 
-      <FooterD></FooterD>
+      <div className="mt-8">
+        <FooterD></FooterD>
+      </div>
     </div>
   );
 }

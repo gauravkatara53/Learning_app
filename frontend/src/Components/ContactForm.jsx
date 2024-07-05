@@ -24,7 +24,7 @@ const ContactForm = () => {
     setSubmitting(true);
 
     try {
-      await axios.post("http://localhost:3000/contact", formData);
+      await axios.post(`http://localhost:3000/contact`, formData);
       setSubmitted(true);
       setFormData({
         name: "",
@@ -40,7 +40,6 @@ const ContactForm = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="max-w-md my-9 mx-auto bg-white shadow-lg rounded-lg border border-gray-200 px-8 pt-6 pb-8 mb-4">
         {!submitted ? (
           <form onSubmit={handleSubmit} className="space-y-6">

@@ -9,17 +9,17 @@ const NotesList = ({ notes }) => {
           {notes.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="min-w-full bg-white rounded-lg shadow-lg overflow-hidden border border-gray-300">
-                <thead className="bg-gray-100 text-gray-900">
+                <thead className="bg-gray-800 text-gray-100">
                   <tr>
                     <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                       Course Name
                     </th>
-                    <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
+                    {/* <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                       Term
                     </th>
                     <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                       Semester
-                    </th>
+                    </th> */}
                     <th className="py-3 px-2 sm:px-4 text-left border-b border-gray-300">
                       Download
                     </th>
@@ -31,12 +31,12 @@ const NotesList = ({ notes }) => {
                       <td className="py-4 px-2 sm:px-6 text-gray-900 border-r border-gray-300">
                         {note.courseName}
                       </td>
-                      <td className="py-4 px-2 sm:px-6 text-gray-900 border-r border-gray-300">
+                      {/* <td className="py-4 px-2 sm:px-6 text-gray-900 border-r border-gray-300">
                         {note.term}
                       </td>
                       <td className="py-4 px-2 sm:px-6 text-gray-900 border-r border-gray-300">
                         {note.semester}
-                      </td>
+                      </td> */}
                       <td className="py-4 px-2 sm:px-6 text-blue-500">
                         <a
                           href={note.pdfUrl}

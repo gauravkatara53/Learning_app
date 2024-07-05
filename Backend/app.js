@@ -1,7 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 const bodyParser = require("body-parser");
+const userRoutes = require("./user");
+
 const multer = require("multer");
 const { initializeApp } = require("firebase/app");
 const {
@@ -11,16 +14,16 @@ const {
   getDownloadURL,
 } = require("firebase/storage");
 
-require("dotenv").config(); // Load environment variables from .env file
+require("dotenv").config(); // Load environment variables
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(bodyParser.json()); // Parse JSON bodies
+app.use(cors());
+app.use(bodyParser.json());
 
-// Initialize Firebase with configuration from environment variables
+// Initialize Firebase
 const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
@@ -33,7 +36,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const storage = getStorage(firebaseApp);
 
-// Configure Multer for handling file uploads, storing files in memory
+// Configure Multer Storage
 const upload = multer({ storage: multer.memoryStorage() });
 
 // MongoDB Connection
@@ -45,7 +48,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Define Question schema and model
+// Question Schema
 const QuestionSchema = new mongoose.Schema({
   courseName: String,
   year: Number,
@@ -56,7 +59,7 @@ const QuestionSchema = new mongoose.Schema({
 
 const Question = mongoose.model("Question", QuestionSchema);
 
-// Define Notes schema and model
+// Notes Schema
 const NotesSchema = new mongoose.Schema({
   courseName: String,
   term: String,
@@ -66,7 +69,7 @@ const NotesSchema = new mongoose.Schema({
 
 const Notes = mongoose.model("Notes", NotesSchema);
 
-// Function to upload a file to Firebase Storage and return its download URL
+// Function to upload file to Firebase Storage
 const uploadFileToFirebase = async (file) => {
   const storageRef = ref(storage, `uploads/${Date.now()}-${file.originalname}`);
   const snapshot = await uploadBytes(storageRef, file.buffer);
@@ -81,7 +84,7 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
     const pdfUrl = await uploadFileToFirebase(req.file); // Upload to Firebase and get URL
     const question = new Question({ courseName, year, term, semester, pdfUrl });
     await question.save();
-    res.json(question); // Respond with the saved question document
+    res.json(question);
   } catch (err) {
     console.error("Error uploading file:", err);
     res.status(500).json({ error: "Failed to upload file" });
@@ -95,14 +98,14 @@ app.post("/upload/note", upload.single("pdf"), async (req, res) => {
     const pdfUrl = await uploadFileToFirebase(req.file); // Upload to Firebase and get URL
     const note = new Notes({ courseName, term, semester, pdfUrl });
     await note.save();
-    res.json(note); // Respond with the saved note document
+    res.json(note);
   } catch (err) {
     console.error("Error uploading file:", err);
     res.status(500).json({ error: "Failed to upload file" });
   }
 });
 
-// Route to fetch questions based on query parameters
+// Route to fetch questions
 app.get("/questions", async (req, res) => {
   try {
     const { courseName, year, term, semester } = req.query;
@@ -112,15 +115,15 @@ app.get("/questions", async (req, res) => {
     if (term) query.term = term;
     if (semester) query.semester = semester;
 
-    const questions = await Question.find(query); // Find questions matching the query
-    res.json(questions); // Respond with the found questions
+    const questions = await Question.find(query);
+    res.json(questions);
   } catch (err) {
     console.error("Error fetching questions:", err);
     res.status(500).json({ error: "Failed to fetch questions" });
   }
 });
 
-// Route to fetch notes based on query parameters
+// Route to fetch notes
 app.get("/notes", async (req, res) => {
   try {
     const { courseName, term, semester } = req.query;
@@ -129,13 +132,16 @@ app.get("/notes", async (req, res) => {
     if (term) query.term = term;
     if (semester) query.semester = semester;
 
-    const notes = await Notes.find(query); // Find notes matching the query
-    res.json(notes); // Respond with the found notes
+    const notes = await Notes.find(query);
+    res.json(notes);
   } catch (err) {
     console.error("Error fetching notes:", err);
     res.status(500).json({ error: "Failed to fetch notes" });
   }
 });
+
+// Use user routes
+app.use("/api/users", userRoutes);
 
 // Start server
 app.listen(PORT, () => {

@@ -69,7 +69,6 @@ const AdminUpload = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="pt-4 px-4">
         <div className="flex flex-col items-center p-8 rounded-lg shadow-md bg-white text-gray-900 border border-gray-300">
           <h2 className="text-4xl mb-6">Upload Exam Paper</h2>

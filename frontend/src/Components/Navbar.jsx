@@ -1,11 +1,23 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import mortarboard from "./mortarboard.png"; // Ensure this path is correct based on your file structure
 import userIcon from "./user_149071.png"; // Add the path to your user icon
 
-function Navbar() {
+const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [username, setUsername] = useState("");
+  const [avatarUrl, setAvatarUrl] = useState("");
+
+  useEffect(() => {
+    // Retrieve user information from local storage
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setUsername(user.username);
+      setAvatarUrl(user.avatarUrl);
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -15,19 +27,41 @@ function Navbar() {
     setIsOpen(false);
   };
 
+  const handleSignOut = () => {
+    // Clear user information from local storage
+    localStorage.removeItem("user");
+    setUsername("");
+    setAvatarUrl("");
+    // Redirect to the home page or login page
+    navigate("/");
+  };
+
+  const handleProfileClick = () => {
+    if (username) {
+      navigate("/profile");
+    } else {
+      navigate("/signin");
+    }
+  };
+
+  const handleSignOutAndCloseMenu = () => {
+    handleSignOut();
+    closeMenu();
+  };
+
   return (
     <>
       <nav className="bg-[#81d0c7] border-gray-200">
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between p-4">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img src={mortarboard} className="h-10" alt="Logo" />
             <span className="self-center text-3xl font-bold whitespace-nowrap text-gray-800">
               Topic
             </span>
-          </a>
+          </Link>
           <div className="flex md:order-2 items-center space-x-4">
             <button
               type="button"
@@ -36,9 +70,14 @@ function Navbar() {
             >
               <span className="sr-only">User menu</span>
               <img
-                src={userIcon}
+                src={avatarUrl || userIcon} // Use a default avatar URL if none is set
                 alt="User Icon"
-                className="w-6 h-6 md:w-8 md:h-8"
+                className="w-6 h-6 md:w-8 md:h-8 outline outline-2 outline-white bg-gray-200 rounded-full" // Add outline class here
+                onClick={handleProfileClick} // Add click handler here
+                onError={(e) => {
+                  console.error("Error loading avatar:", e);
+                  e.target.src = "default_avatar_url"; // Fallback to default avatar
+                }}
               />
             </button>
             <button
@@ -66,10 +105,22 @@ function Navbar() {
 
             <div className="hidden md:flex items-center">
               <img
-                src={userIcon}
+                src={avatarUrl || userIcon} // Use a default avatar URL if none is set
                 alt="User Icon"
-                className="w-10 h-10 rounded-full" // Adjust size as needed
+                className="w-10 h-10 rounded-full cursor-pointer outline outline-2 outline-white bg-gray-200" // Add outline class here
+                onClick={handleProfileClick}
+                onError={(e) => {
+                  console.error("Error loading avatar:", e);
+                  e.target.src = "default_avatar_url"; // Fallback to default avatar
+                }}
               />
+              {username && (
+                <>
+                  <span className="ml-2 bg-white mx-3 rounded-md text-gray-800 px-3">
+                    Hello, {username}
+                  </span>
+                </>
+              )}
             </div>
           </div>
 
@@ -111,6 +162,13 @@ function Navbar() {
                 isOpen ? "bg-[#81d0c7]" : "bg-gray-50"
               } md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-[#81d0c7]`}
             >
+              {username && (
+                <li className="md:hidden flex items-center space-x-2">
+                  <span className="block my-3 py-2 px-3 text-gray-800 rounded bg-white ">
+                    Hello, {username}
+                  </span>
+                </li>
+              )}
               <li>
                 <Link
                   to="/"
@@ -125,19 +183,21 @@ function Navbar() {
                   Dashboard
                 </Link>
               </li>
+
               <li>
                 <Link
-                  to="/notes"
+                  to="/academic"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 ${
-                    location.pathname === "/notes"
+                    location.pathname === "/academic"
                       ? "md:text-blue-500 bg-gray-100"
                       : ""
                   }`}
                   onClick={closeMenu}
                 >
-                  Notes
+                  Academic
                 </Link>
               </li>
+
               <li>
                 <Link
                   to="/attendance"
@@ -149,6 +209,20 @@ function Navbar() {
                   onClick={closeMenu}
                 >
                   Attendance
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/courses"
+                  className={`block py-2 px-3 md:py-2 md:px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 ${
+                    location.pathname === "/courses"
+                      ? "md:text-blue-500 bg-gray-100"
+                      : ""
+                  }`}
+                  onClick={closeMenu}
+                >
+                  Courses
                 </Link>
               </li>
               <li>
@@ -166,28 +240,15 @@ function Navbar() {
               </li>
               <li>
                 <Link
-                  to="/courses"
+                  to="/contact"
                   className={`block py-2 px-3 md:py-2 md:px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 ${
-                    location.pathname === "/courses"
+                    location.pathname === "/contact"
                       ? "md:text-blue-500 bg-gray-100"
                       : ""
                   }`}
                   onClick={closeMenu}
                 >
-                  Courses
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/board"
-                  className={`block py-2 px-3 md:py-2 md:px-3 text-gray-700 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 md:p-0 ${
-                    location.pathname === "/board"
-                      ? "md:text-blue-500 bg-gray-100"
-                      : ""
-                  }`}
-                  onClick={closeMenu}
-                >
-                  Board
+                  Contact us
                 </Link>
               </li>
             </ul>
@@ -196,6 +257,6 @@ function Navbar() {
       </nav>
     </>
   );
-}
+};
 
 export default Navbar;

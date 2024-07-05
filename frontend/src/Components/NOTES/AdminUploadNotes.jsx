@@ -56,7 +56,6 @@ const AdminUploadNotes = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
       <div className="flex flex-col mt-4 mx-2 items-center bg-white p-8 rounded-lg shadow-md border border-gray-300">
         <h2 className="text-4xl text-gray-900 mb-6">Upload Notes</h2>
         <div class="rounded-md my-4 border-l-4 border-yellow-500 bg-yellow-100 p-4">

@@ -4,3 +4,4 @@
 # Ignore .env file
 .env
 /config
+/node_modules

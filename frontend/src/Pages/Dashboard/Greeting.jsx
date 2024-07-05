@@ -28,23 +28,8 @@ function Greeting() {
   const currentTheme = systemDarkMode ? "dark" : "light";
 
   return (
-    <div
-      className={`bg-${
-        currentTheme === "dark" ? "gray-900" : "gray-200"
-      } rounded-lg p-4 mb-4`}
-    >
-      <h2
-        className={`text-2xl font-semibold ${
-          currentTheme === "dark" ? "text-white" : "text-gray-800"
-        }`}
-      >
-        Welcome!
-      </h2>
-      <p
-        className={`text-${currentTheme === "dark" ? "gray-300" : "gray-400"}`}
-      >
-        {greetingMessage}, User!
-      </p>
+    <div className="bg-white px-2 rounded-lg py-2">
+      <p className="">{greetingMessage}, User!</p>
     </div>
   );
 }

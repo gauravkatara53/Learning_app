@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const FAQSection = () => {
   // State to manage which FAQ items are open
@@ -145,13 +146,14 @@ const FAQSection = () => {
         </div>
         <p className="textbase mt-6 text-center text-gray-600">
           Can't find what you're looking for?{" "}
-          <a
+          <Link
+            to="/contact"
             href="#"
             title=""
             className="font-semibold text-black hover:underline"
           >
             Contact our support
-          </a>
+          </Link>
         </p>
       </div>
     </section>
