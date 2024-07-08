@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import dsa from "../IMG/dsa.jpeg";
@@ -12,7 +13,39 @@ const Courses = () => {
     WEB: false,
   });
 
-  // Function to dynamically load the Razorpay script
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    courseName: "",
+    amount: 0,
+  });
+
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData) {
+      setUser(userData);
+      setFormData((prevData) => ({
+        ...prevData,
+        username: userData.username,
+        email: userData.email,
+      }));
+
+      // Update coursePurchased state based on user's purchased courses
+      const purchasedCourses = userData.purchasedCourses || [];
+      const updatedCoursePurchased = {
+        DSA: purchasedCourses.includes("DSA"),
+        AI: purchasedCourses.includes("AI"),
+        WEB: purchasedCourses.includes("WEB"),
+      };
+      setCoursePurchased(updatedCoursePurchased);
+    } else {
+    }
+  }, [navigate]);
+
   const loadRazorpayScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -27,8 +60,7 @@ const Courses = () => {
     });
   };
 
-  // Function to handle the payment process
-  const handlePayment = async (courseName, amount) => {
+  const handlePayment = async () => {
     const res = await loadRazorpayScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );
@@ -39,26 +71,39 @@ const Courses = () => {
     }
 
     const options = {
-      key: "rzp_test_r0KzTiIrEwf7Qc", // Your Razorpay key ID
-      amount: amount * 100, // Amount in paise
+      key: "rzp_test_r0KzTiIrEwf7Qc",
+      amount: formData.amount * 100,
       currency: "INR",
       name: "TPOIC PVT L.T.D",
       description: "Test Transaction",
-      handler: function (response) {
+      handler: async (response) => {
         alert("Payment Successful");
-        setCoursePurchased((prev) => ({ ...prev, [courseName]: true }));
-        // Store purchased courses in local storage
-        const purchasedCourses =
-          JSON.parse(localStorage.getItem("purchasedCourses")) || {};
-        purchasedCourses[courseName] = true;
-        localStorage.setItem(
-          "purchasedCourses",
-          JSON.stringify(purchasedCourses)
-        );
+        setCoursePurchased((prev) => ({
+          ...prev,
+          [formData.courseName]: true,
+        }));
+
+        // Update user data in localStorage
+        const userData = JSON.parse(localStorage.getItem("user"));
+        userData.purchasedCourses = userData.purchasedCourses || [];
+        userData.purchasedCourses.push(formData.courseName);
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // Send form data and payment info to server
+        await fetch("http://localhost:3000/api/payment", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...formData,
+            paymentId: response.razorpay_payment_id,
+          }),
+        });
       },
       prefill: {
-        name: "Your Name",
-        email: "youremail@example.com",
+        name: formData.username,
+        email: formData.email,
         contact: "9999999999",
       },
       notes: {
@@ -71,6 +116,21 @@ const Courses = () => {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
+  };
+
+  const handleBuyClick = (courseName, amount) => {
+    setFormData({ ...formData, courseName, amount });
+    setShowForm(true);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handlePayment();
+    setShowForm(false);
+  };
+
+  const handleCloseForm = () => {
+    setShowForm(false);
   };
 
   return (
@@ -105,7 +165,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handlePayment("DSA", 1000)}
+                        onClick={() => handleBuyClick("DSA", 1000)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -128,8 +188,7 @@ const Courses = () => {
                     </span>
                   </div>
                   <img
-                    src="https://image.pbs.org/video-assets/XFRgNfM-asset-mezzanine-16x9-Qo6oLrn.jpg?focalcrop=1200x630x50x10&format=auto
-                   "
+                    src="https://image.pbs.org/video-assets/XFRgNfM-asset-mezzanine-16x9-Qo6oLrn.jpg?focalcrop=1200x630x50x10&format=auto"
                     className="w-full h-auto mt-2 rounded-lg"
                     alt="ml"
                   />
@@ -142,7 +201,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handlePayment("AI", 2000)}
+                        onClick={() => handleBuyClick("AI", 2000)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -178,7 +237,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handlePayment("WEB", 3000)}
+                        onClick={() => handleBuyClick("WEB", 3000)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -194,7 +253,69 @@ const Courses = () => {
           </div>
         </div>
       </section>
-      <Footer></Footer>
+
+      {showForm && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg relative">
+            <button
+              className="absolute top-2 right-2 text-gray-700"
+              onClick={handleCloseForm}
+              style={{ fontSize: "2rem" }} // Adjust the size as needed
+            >
+              &times;
+            </button>
+            <h2 className="text-2xl mb-4">Enter Your Details</h2>
+            <form onSubmit={handleFormSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700">Username</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={formData.username}
+                  readOnly
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Email</label>
+                <input
+                  type="email"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Course</label>
+                <input
+                  type="text"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={formData.courseName}
+                  readOnly
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700">Amount</label>
+                <input
+                  type="number"
+                  className="w-full p-2 border border-gray-300 rounded"
+                  value={formData.amount}
+                  readOnly
+                />
+              </div>
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
+                Pay
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
+      <Footer />
     </div>
   );
 };

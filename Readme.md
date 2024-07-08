@@ -25,7 +25,7 @@ Learning_app/
 ├── Frontend/            # Frontend code
 │   ├── public/
 │   └── src/
-├── server/            # Backend code
+├── Backend/            # Backend code
 │   ├── controllers/
 │   ├── models/
 │   ├── routes/

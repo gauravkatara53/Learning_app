@@ -1,10 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-
 const bodyParser = require("body-parser");
 const userRoutes = require("./user");
-
 const multer = require("multer");
 const { initializeApp } = require("firebase/app");
 const {
@@ -47,6 +45,17 @@ mongoose
   })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
+
+// Payment Schema
+const PaymentSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  courseName: String,
+  amount: Number,
+  paymentId: String,
+});
+
+const Payment = mongoose.model("Payment", PaymentSchema);
 
 // Question Schema
 const QuestionSchema = new mongoose.Schema({
@@ -137,6 +146,19 @@ app.get("/notes", async (req, res) => {
   } catch (err) {
     console.error("Error fetching notes:", err);
     res.status(500).json({ error: "Failed to fetch notes" });
+  }
+});
+
+// Route to handle payment data
+app.post("/api/payment", async (req, res) => {
+  try {
+    const { name, email, courseName, amount, paymentId } = req.body;
+    const payment = new Payment({ name, email, courseName, amount, paymentId });
+    await payment.save();
+    res.json(payment);
+  } catch (err) {
+    console.error("Error saving payment data:", err);
+    res.status(500).json({ error: "Failed to save payment data" });
   }
 });
 
