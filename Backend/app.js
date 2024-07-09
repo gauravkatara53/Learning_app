@@ -48,7 +48,7 @@ mongoose
 
 // Payment Schema
 const PaymentSchema = new mongoose.Schema({
-  name: String,
+  username: String,
   email: String,
   courseName: String,
   amount: Number,
@@ -77,6 +77,16 @@ const NotesSchema = new mongoose.Schema({
 });
 
 const Notes = mongoose.model("Notes", NotesSchema);
+
+// Contact Schema
+const ContactSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  message: String,
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Contact = mongoose.model("Contact", ContactSchema);
 
 // Function to upload file to Firebase Storage
 const uploadFileToFirebase = async (file) => {
@@ -152,13 +162,34 @@ app.get("/notes", async (req, res) => {
 // Route to handle payment data
 app.post("/api/payment", async (req, res) => {
   try {
-    const { name, email, courseName, amount, paymentId } = req.body;
-    const payment = new Payment({ name, email, courseName, amount, paymentId });
+    const { username, email, courseName, amount, paymentId } = req.body;
+    const payment = new Payment({
+      username,
+      email,
+      courseName,
+      amount,
+      paymentId,
+    });
     await payment.save();
     res.json(payment);
   } catch (err) {
     console.error("Error saving payment data:", err);
     res.status(500).json({ error: "Failed to save payment data" });
+  }
+});
+
+// Route to handle contact form submissions
+app.post("/api/contact", async (req, res) => {
+  try {
+    const { name, email, message } = req.body;
+    const contact = new Contact({ name, email, message });
+    await contact.save();
+    res
+      .status(201)
+      .json({ message: "Contact form submitted successfully", contact });
+  } catch (err) {
+    console.error("Error saving contact form data:", err);
+    res.status(500).json({ error: "Failed to submit contact form" });
   }
 });
 
