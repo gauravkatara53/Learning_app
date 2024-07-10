@@ -25,6 +25,23 @@ const Courses = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchPurchasedCourses = async (username) => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/purchased-courses/${username}`
+        );
+        const purchasedCourses = await response.json();
+        const updatedCoursePurchased = {
+          DSA: purchasedCourses.includes("DSA"),
+          AI: purchasedCourses.includes("AI"),
+          WEB: purchasedCourses.includes("WEB"),
+        };
+        setCoursePurchased(updatedCoursePurchased);
+      } catch (error) {
+        console.error("Error fetching purchased courses:", error);
+      }
+    };
+
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData) {
       setUser(userData);
@@ -34,15 +51,7 @@ const Courses = () => {
         email: userData.email,
       }));
 
-      // Update coursePurchased state based on user's purchased courses
-      const purchasedCourses = userData.purchasedCourses || [];
-      const updatedCoursePurchased = {
-        DSA: purchasedCourses.includes("DSA"),
-        AI: purchasedCourses.includes("AI"),
-        WEB: purchasedCourses.includes("WEB"),
-      };
-      setCoursePurchased(updatedCoursePurchased);
-    } else {
+      fetchPurchasedCourses(userData.username);
     }
   }, [navigate]);
 
@@ -256,66 +265,80 @@ const Courses = () => {
 
       {showForm && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg relative">
-            <button
-              className="absolute top-2 right-2 text-gray-700"
-              onClick={handleCloseForm}
-              style={{ fontSize: "2rem" }} // Adjust the size as needed
-            >
-              &times;
-            </button>
-            <h2 className="text-2xl mb-4">Enter Your Details</h2>
+          <div className="bg-white rounded-lg p-8 shadow-lg transform transition-all">
+            <h2 className="text-3xl font-bold mb-4 text-center">
+              Confirm Purchase
+            </h2>
             <form onSubmit={handleFormSubmit}>
               <div className="mb-4">
-                <label className="block text-gray-700">Username</label>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Username
+                </label>
                 <input
                   type="text"
-                  className="w-full p-2 border border-gray-300 rounded"
                   value={formData.username}
-                  readOnly
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Email</label>
-                <input
-                  type="email"
-                  className="w-full p-2 border border-gray-300 rounded"
-                  value={formData.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setFormData({ ...formData, username: e.target.value })
                   }
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
                   required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Course</label>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Email
+                </label>
                 <input
-                  type="text"
-                  className="w-full p-2 border border-gray-300 rounded"
-                  value={formData.courseName}
-                  readOnly
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300"
+                  required
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-gray-700">Amount</label>
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Course Name
+                </label>
                 <input
-                  type="number"
-                  className="w-full p-2 border border-gray-300 rounded"
-                  value={formData.amount}
+                  type="text"
+                  value={formData.courseName}
                   readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-gray-200"
                 />
               </div>
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                Pay
-              </button>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Amount
+                </label>
+                <input
+                  type="number"
+                  value={formData.amount}
+                  readOnly
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300 bg-gray-200"
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mx-2 rounded transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  Proceed to Payment
+                </button>
+                <button
+                  type="button"
+                  onClick={handleCloseForm}
+                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500"
+                >
+                  Cancel
+                </button>
+              </div>
             </form>
           </div>
         </div>
       )}
-      <Footer />
     </div>
   );
 };

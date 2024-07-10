@@ -178,6 +178,19 @@ app.post("/api/payment", async (req, res) => {
   }
 });
 
+// Route to fetch purchased courses
+app.get("/api/purchased-courses/:username", async (req, res) => {
+  try {
+    const { username } = req.params;
+    const payments = await Payment.find({ username });
+    const purchasedCourses = payments.map((payment) => payment.courseName);
+    res.json(purchasedCourses);
+  } catch (err) {
+    console.error("Error fetching purchased courses:", err);
+    res.status(500).json({ error: "Failed to fetch purchased courses" });
+  }
+});
+
 // Route to handle contact form submissions
 app.post("/api/contact", async (req, res) => {
   try {
