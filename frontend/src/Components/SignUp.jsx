@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const [formData, setFormData] = useState({
@@ -8,8 +10,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-  const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -17,28 +18,37 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/users/signup`,
+        "http://localhost:3000/api/users/signup",
         formData
       );
-      setMessage(response.data.message);
-      setError(""); // Clear any previous errors
+      toast.success("Account successfully created!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } catch (error) {
-      setError(error.response.data.error);
-      setMessage(""); // Clear any previous messages
+      toast.error(error.response.data.error, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } finally {
+      setLoading(false);
     }
   };
-
-  useEffect(() => {
-    if (message || error) {
-      const timer = setTimeout(() => {
-        setMessage("");
-        setError("");
-      }, 3000);
-      return () => clearTimeout(timer); // Cleanup the timer on component unmount
-    }
-  }, [message, error]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -81,11 +91,10 @@ const SignUp = () => {
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+            disabled={loading}
           >
-            Sign Up
+            {loading ? "Signing Up..." : "Sign Up"}
           </button>
-          {error && <p className="mt-4 text-red-500">{error}</p>}
-          {message && <p className="mt-4 text-green-500">{message}</p>}
         </form>
         <p className="mt-6 text-center">
           <Link to="/signin" className="text-blue-500 hover:underline">
@@ -93,6 +102,18 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

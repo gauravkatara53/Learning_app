@@ -9,6 +9,7 @@ import FooterD from "./Dashboard/Footerd";
 import BrowseTopics from "./Dashboard/ BrowseTopics";
 import FAQSection from "./Dashboard/ FAQSection";
 import Navbar from "../Components/Navbar";
+import Testimonial from "./Testnomial";
 
 function Dashboard() {
   const [selectedTab, setSelectedTab] = useState("custom1");
@@ -114,6 +115,7 @@ function Dashboard() {
 
       <BrowseTopics></BrowseTopics>
       <FAQSection></FAQSection>
+      <Testimonial></Testimonial>
 
       <div className="mt-8">
         <FooterD></FooterD>

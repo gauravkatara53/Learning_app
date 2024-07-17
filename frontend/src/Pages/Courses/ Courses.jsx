@@ -180,7 +180,7 @@ const Courses = () => {
                 </a>
                 <div className="p-4 flex space-x-2">
                   {coursePurchased.DSA ? (
-                    <Link to="/courses/dsa">
+                    <Link to="/courses/dsaH2Q1LBoBNiftg7X5ftna7oACf1mOmUVJsXhecfrQqoxDUx2R5Rrandom+text&rlz=1C5CHFA_enIN1111IN1111&oq=random+text&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI0MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8">
                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         View Course
                       </button>
@@ -188,7 +188,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handleBuyClick("DSA", 1000)}
+                        onClick={() => handleBuyClick("DSA", 5500)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -218,7 +218,7 @@ const Courses = () => {
                 </a>
                 <div className="p-4 flex space-x-2">
                   {coursePurchased.AI ? (
-                    <Link to="/courses/ai">
+                    <Link to="/courses/aihqaL0sNi3eAfrNX4lWgjeC8xGj9Bt0PDGK3QG7xTuuFtMRdnourandom+text&rlz=1C5CHFA_enIN1111IN1111&oq=random+text&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI0MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8">
                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         View Course
                       </button>
@@ -226,7 +226,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handleBuyClick("AI", 2000)}
+                        onClick={() => handleBuyClick("AI", 7500)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy
@@ -256,7 +256,7 @@ const Courses = () => {
                 </a>
                 <div className="p-4 flex space-x-2">
                   {coursePurchased.WEB ? (
-                    <Link to="/courses/web">
+                    <Link to="/courses/webwUCCttG8Hr5pudpr1mQK6Ab2vWjbpKjFE8loDHfe5W87fo4zd8random+text&rlz=1C5CHFA_enIN1111IN1111&oq=random+text&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI0MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8">
                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         View Course
                       </button>
@@ -264,7 +264,7 @@ const Courses = () => {
                   ) : (
                     <>
                       <button
-                        onClick={() => handleBuyClick("WEB", 3000)}
+                        onClick={() => handleBuyClick("WEB", 4500)}
                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                       >
                         Buy

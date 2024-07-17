@@ -50,9 +50,12 @@ mongoose
 const PaymentSchema = new mongoose.Schema({
   username: String,
   email: String,
+  phone: String, // Updated to String to match the input type
   courseName: String,
   amount: Number,
   paymentId: String,
+  promoCode: String,
+  discountApplied: Boolean,
 });
 
 const Payment = mongoose.model("Payment", PaymentSchema);
@@ -64,6 +67,8 @@ const QuestionSchema = new mongoose.Schema({
   term: String,
   semester: Number,
   pdfUrl: String,
+  username: String,
+  email: String,
 });
 
 const Question = mongoose.model("Question", QuestionSchema);
@@ -74,6 +79,8 @@ const NotesSchema = new mongoose.Schema({
   term: String,
   semester: Number,
   pdfUrl: String,
+  username: String,
+  email: String,
 });
 
 const Notes = mongoose.model("Notes", NotesSchema);
@@ -99,9 +106,17 @@ const uploadFileToFirebase = async (file) => {
 // Route for uploading questions
 app.post("/upload/question", upload.single("pdf"), async (req, res) => {
   try {
-    const { courseName, year, term, semester } = req.body;
+    const { courseName, year, term, semester, username, email } = req.body;
     const pdfUrl = await uploadFileToFirebase(req.file); // Upload to Firebase and get URL
-    const question = new Question({ courseName, year, term, semester, pdfUrl });
+    const question = new Question({
+      courseName,
+      year,
+      term,
+      semester,
+      pdfUrl,
+      username,
+      email,
+    });
     await question.save();
     res.json(question);
   } catch (err) {
@@ -113,9 +128,16 @@ app.post("/upload/question", upload.single("pdf"), async (req, res) => {
 // Route for uploading notes
 app.post("/upload/note", upload.single("pdf"), async (req, res) => {
   try {
-    const { courseName, term, semester } = req.body;
+    const { courseName, term, semester, username, email } = req.body;
     const pdfUrl = await uploadFileToFirebase(req.file); // Upload to Firebase and get URL
-    const note = new Notes({ courseName, term, semester, pdfUrl });
+    const note = new Notes({
+      courseName,
+      term,
+      semester,
+      pdfUrl,
+      username,
+      email,
+    });
     await note.save();
     res.json(note);
   } catch (err) {
@@ -162,13 +184,25 @@ app.get("/notes", async (req, res) => {
 // Route to handle payment data
 app.post("/api/payment", async (req, res) => {
   try {
-    const { username, email, courseName, amount, paymentId } = req.body;
-    const payment = new Payment({
+    const {
       username,
       email,
+      phone,
       courseName,
       amount,
       paymentId,
+      promoCode,
+      discountApplied,
+    } = req.body;
+    const payment = new Payment({
+      username,
+      email,
+      phone,
+      courseName,
+      amount,
+      paymentId,
+      promoCode,
+      discountApplied,
     });
     await payment.save();
     res.json(payment);

@@ -21,10 +21,10 @@ const FAQSection = () => {
     <section className="mx-auto max-w-7xl  bg-white shadow-lg rounded-lg border-2 border-gray-200 px-2 py-10 md:px-0">
       <div>
         <div className="mx-auto max-w-2xl lg:text-center">
-          <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">
+          <h2 className="text-3xl font-bold text-center leading-tight text-black sm:text-4xl lg:text-5xl">
             Frequently Asked Questions
           </h2>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-gray-600 lg:mx-auto">
+          <p className="mt-4 max-w-xl text-base text-center leading-relaxed text-gray-600 lg:mx-auto">
             Find answers to common questions about accessing notes and question
             papers.
           </p>

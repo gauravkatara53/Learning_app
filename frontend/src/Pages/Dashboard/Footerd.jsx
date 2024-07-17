@@ -1,5 +1,6 @@
 import React from "react";
 import mortarboard from "../../assets/mortarboard.png";
+import { Link } from "react-router-dom";
 
 const Footerd = () => {
   return (
@@ -32,36 +33,40 @@ const Footerd = () => {
               </h3>
               <ul>
                 <li className="mb-4">
-                  <a
+                  <Link
+                    to="/profile"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                     href="#"
                   >
                     Account
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a
+                  <Link
+                    to="/contact"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                     href="#"
                   >
                     Help
-                  </a>
+                  </Link>
                 </li>
                 <li className="mb-4">
-                  <a
+                  <Link
+                    to="/contact"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                     href="#"
                   >
                     Contact Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
+                    to="/contact"
                     className="text-base font-medium text-gray-900 hover:text-gray-700"
                     href="#"
                   >
                     Customer Support
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

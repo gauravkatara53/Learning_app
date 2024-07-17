@@ -92,8 +92,8 @@ const Attendance = () => {
               Attendance Calculator
             </h1>
             <div className="px-auto pb-8">
-              <div class="rounded-md border-l-4 border-yellow-500 bg-yellow-100 p-4">
-                <div class="flex items-center justify-between space-x-4">
+              <div className="rounded-md border-l-4 border-yellow-500 bg-yellow-100 p-4">
+                <div className="flex items-center justify-between space-x-4">
                   <div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -102,10 +102,10 @@ const Attendance = () => {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="h-6 w-6 text-yellow-600"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-6 w-6 text-yellow-600"
                     >
                       <circle cx="12" cy="12" r="10"></circle>
                       <line x1="12" y1="8" x2="12" y2="12"></line>
@@ -113,7 +113,7 @@ const Attendance = () => {
                     </svg>
                   </div>
                   <div>
-                    <p class="text-sm font-medium text-yellow-600">
+                    <p className="text-sm font-medium text-yellow-600">
                       You can enter any desired percentage you want
                     </p>
                   </div>

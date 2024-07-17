@@ -8,7 +8,7 @@ import {
 import "./App.css";
 import Navbar from "./Components/Navbar";
 import NotePage from "./Pages/NotePage";
-import Courses from "./Pages/ Courses";
+import Courses from "./Pages/Courses/ Courses";
 import Attendance from "./Pages/Attendance";
 import Group from "./Pages/ Group";
 import Dashboard from "./Pages/Dashboard";
@@ -27,6 +27,11 @@ import ComingSoon from "./Components/credit/ComingSoon";
 import ContactForm from "./Components/ContactForm";
 import Profile from "./Components/Profile";
 import CreditPage from "./Components/credit/CreditPage";
+import Alert from "./Components/Alert";
+import DSA from "./Pages/Courses/DSA";
+import AI from "./Pages/Courses/AI";
+import Web from "./Pages/Courses/Web";
+import Pointer from "./Components/Pointer";
 
 function App() {
   const [pdfs, setPdfs] = useState([]);
@@ -60,7 +65,9 @@ function App() {
 
   return (
     <div>
+      {!hideNavbarRoutes.includes(location.pathname) && <Alert />}
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
@@ -94,6 +101,21 @@ function App() {
         <Route path="/contact" element={<ContactForm />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
+
+        <Route
+          path="/courses/dsaH2Q1LBoBNiftg7X5ftna7oACf1mOmUVJsXhecfrQqoxDUx2R5Rrandom+text&rlz=1C5CHFA_enIN1111IN1111&oq=random+text&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI0MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
+          element={<DSA />}
+        />
+        <Route
+          path="/courses/aihqaL0sNi3eAfrNX4lWgjeC8xGj9Bt0PDGK3QG7xTuuFtMRdnourandom+text&rlz=1C5CHFA_enIN1111IN1111&oq=random+text&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI0MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
+          element={<AI />}
+        />
+        <Route
+          path="/courses/webwUCCttG8Hr5pudpr1mQK6Ab2vWjbpKjFE8loDHfe5W87fo4zd8random+text&rlz=1C5CHFA_enIN1111IN1111&oq=random+text&gs_lcrp=EgZjaHJvbWUyBggAEEUYOdIBCDI0MTVqMGo3qAIAsAIA&sourceid=chrome&ie=UTF-8"
+          element={<Web />}
+        />
+
+        <Route path="/cg" element={<Pointer />} />
       </Routes>
     </div>
   );

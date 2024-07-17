@@ -1,4 +1,3 @@
-// Profile.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
@@ -28,7 +27,7 @@ function Profile() {
 
   const handleSignOut = () => {
     localStorage.removeItem("user");
-    navigate("/");
+    window.location.href = "/"; // This will reload the page and navigate to the root route
   };
 
   if (!user) {

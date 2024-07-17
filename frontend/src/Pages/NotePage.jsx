@@ -63,6 +63,24 @@ const NotePage = () => {
                   <div className="p-4"></div>
                 </Link>
               </div>
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <div className="p-4">
+                  <h5 className="text-2xl font-bold text-gray-800">
+                    CG Calculator
+                  </h5>
+                </div>
+                <Link to="/cg" className="relative block">
+                  <img
+                    src="https://img.freepik.com/free-vector/calculator-concept-illustration_114360-1239.jpg?semt=ais_user"
+                    className="w-full  object-cover"
+                    alt="Physics"
+                  />
+                  <div className="absolute inset-0 bg-black opacity-0 hover:opacity-50 transition-opacity flex items-center justify-center">
+                    <h5 className="text-3xl font-bold text-white">CG</h5>
+                  </div>
+                  <div className="p-4"></div>
+                </Link>
+              </div>
             </div>
           </div>
         </section>

@@ -50,22 +50,40 @@ const BrowseTopics = () => {
         );
       case "custom3":
         return (
-          <div className="col-lg-4 col-md-6 col-12 mx-auto mb-4 mb-lg-0">
-            <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <Link to="./attendance" className="block relative">
-                <img
-                  src="https://img.freepik.com/free-vector/appointment-booking-with-calendar_23-2148553008.jpg?t=st=1718795584~exp=1718799184~hmac=c1316338c071903f7ee299f0fd3b2e16167dce3773b5a35b2f50006e5d125775&w=1380"
-                  alt="Attendance Image"
-                  className="h-64 md:h-80 lg:h-96 w-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                  <h5 className="text-white text-3xl font-black uppercase text-center px-4">
-                    Attendance
-                  </h5>
-                </div>
-              </Link>
+          <>
+            <div className="col-lg-4 col-md-6 col-12 mx-auto mb-4 mb-lg-0">
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <Link to="./attendance" className="block relative">
+                  <img
+                    src="https://img.freepik.com/free-vector/appointment-booking-with-calendar_23-2148553008.jpg?t=st=1718795584~exp=1718799184~hmac=c1316338c071903f7ee299f0fd3b2e16167dce3773b5a35b2f50006e5d125775&w=1380"
+                    alt="Attendance Image"
+                    className="h-64 md:h-80 lg:h-96 w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <h5 className="text-white text-3xl font-black uppercase text-center px-4">
+                      Attendance
+                    </h5>
+                  </div>
+                </Link>
+              </div>
             </div>
-          </div>
+            <div className="col-lg-4 col-md-6 col-12 mx-auto mb-4 mb-lg-0">
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden">
+                <Link to="./cg" className="block relative">
+                  <img
+                    src="https://img.freepik.com/free-vector/calculator-concept-illustration_114360-1239.jpg?semt=ais_user"
+                    alt="Attendance Image"
+                    className="h-64 md:h-80 lg:h-96 w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                    <h5 className="text-white text-3xl font-black uppercase text-center px-4">
+                      CG calculator
+                    </h5>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          </>
         );
       case "custom4":
         return (

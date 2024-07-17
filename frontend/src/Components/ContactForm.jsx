@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Navbar from "./Navbar";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -24,8 +25,18 @@ const ContactForm = () => {
     setSubmitting(true);
 
     try {
-      await axios.post(`http://localhost:3000/api/contact`, formData);
+      await axios.post("http://localhost:3000/api/contact", formData);
       setSubmitted(true);
+      toast.success("Form submitted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
       setFormData({
         name: "",
         email: "",
@@ -33,19 +44,42 @@ const ContactForm = () => {
       });
     } catch (error) {
       console.error("Error submitting form:", error);
+      toast.error("Failed to submit form.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } finally {
       setSubmitting(false);
     }
   };
 
   // Hide the success message after 3 seconds
-
-  setTimeout(() => {
-    setSubmitted(false);
-  }, 30000);
+  if (submitted) {
+    setTimeout(() => {
+      setSubmitted(false);
+    }, 3000);
+  }
 
   return (
     <div className="mt-12 mx-2">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className="grid sm:grid-cols-2 items-start gap-14 p-8 mx-auto max-w-4xl bg-white shadow-[0_2px_10px_-3px_rgba(6,81,237,0.3)] rounded-md font-[sans-serif]">
         <div>
           <h1 className="text-gray-800 text-3xl text-center font-extrabold">
@@ -75,11 +109,11 @@ const ContactForm = () => {
                   </svg>
                 </div>
                 <a
-                  href="mailto:info@example.com"
+                  href="mailto:gauravkatara53@gmail.com"
                   className="text-[#007bff] text-sm ml-4"
                 >
                   <small className="block">Mail</small>
-                  <strong>gauravkatara53@gmail.com</strong>
+                  <strong>contact@topic.ac.in</strong>
                 </a>
               </li>
             </ul>
@@ -134,14 +168,6 @@ const ContactForm = () => {
         </div>
 
         <div>
-          {submitted && (
-            <div
-              className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded mb-4"
-              role="alert"
-            >
-              <p className="font-semibold">Form submitted successfully!</p>
-            </div>
-          )}
           <form
             className="flex flex-col space-y-4 text-[#555]"
             onSubmit={handleSubmit}

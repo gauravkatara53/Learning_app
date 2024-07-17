@@ -1,0 +1,34 @@
+/* toastStyles.css */
+.Toastify__toast-container {
+  width: 90% !important;
+  max-width: 350px;
+}
+
+.Toastify__toast {
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.Toastify__toast--success {
+  background-color: #4caf50;
+}
+
+.Toastify__toast--error {
+  background-color: #f44336;
+  color: white;
+}
+
+.Toastify__close-button {
+  color: white;
+}
+
+@media (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 95% !important;
+    left: 2.5% !important;
+  }
+
+  .Toastify__toast {
+    font-size: 14px;
+  }
+}
